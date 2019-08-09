@@ -16,11 +16,12 @@
 一般来说我们开发实际项目的时候都是按模块划分的.
 [d2-admin-start-kit-module](https://github.com/hank-cp/d2-admin-start-kit-module)
 约定了以下目录结构来组织我们的代码: 
-* [module name]
+* [your module]
     * api
+        * [your api].js
         * mock.js
     * views
-        * [page].vue
+        * [your page].vue
         * [assets/image.jpg]
     * store (TODO) 
     * routes.js
