@@ -17,11 +17,12 @@ your own.
 Generally we design software architecture in modular way for real project.
 [d2-admin-start-kit-module](https://github.com/hank-cp/d2-admin-start-kit-module)
 defines following directory structure in convention to organize codes.
-* [module name]
+* [your module]
     * api
+        * [your api].js
         * mock.js
     * views
-        * [page].vue
+        * [your page].vue
         * [assets/image.jpg]
     * store (TODO) 
     * routes.js

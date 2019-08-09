@@ -1,4 +1,4 @@
-import request from '@/d2admin/plugin/axios'
+import axios from '@/d2admin/plugin/axios'
 import qs from 'qs'
 
 export default {
@@ -6,14 +6,14 @@ export default {
     return new Promise(async (resolve, reject) => {
       let resp
       if (loginToken) {
-        resp = await request.post(`/login-by-token`,
+        resp = await axios.post(`/login-by-token`,
           qs.stringify({ loginToken })
         ).catch(err => {
           console.log('Login failed: ', err)
           reject(err)
         })
       } else {
-        resp = await request.post(`/login`,
+        resp = await axios.post(`/login`,
           qs.stringify({
             username, password
           })
