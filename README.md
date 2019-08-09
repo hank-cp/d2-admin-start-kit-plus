@@ -24,7 +24,24 @@ defines following directory structure in convention to organize codes.
         * [page].vue
         * [assets/image.jpg]
     * store (TODO) 
-    * routes.js 
+    * routes.js
+    
+### Differences from original D2Admin
+We assume you are familiar with [D2Admin](https://github.com/d2-projects/d2-admin), 
+and we make a little bit changes from original D2Admin configuration.
+* Mock switch
+    * it's now control by `MOCK` in `.env` file.
+* Devtool
+    * it's now `source-map`, original it's `cheap-source-map`. If you run into
+    performance issue, consider modify it.
+* Async Component
+    * Originally [D2Admin](https://github.com/d2-projects/d2-admin) switch
+    [sync/async Vue component](https://vuejs.org/v2/guide/components-dynamic-async.html) 
+    loading by env (development/production). But we
+    have difficulty to handle this in module way with webpack. So we change it to:
+        * Load D2Admin components in sync way.
+        * Load module components in async way. If you get performance issue,
+        consider change it to sync way.
     
 ### Upgrade D2Admin
 Pull this project with updates then just copy and replace `/src/d2admin` directory 

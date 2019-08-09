@@ -25,5 +25,19 @@
     * store (TODO) 
     * routes.js
 
+### 与原版D2Admin的小差别
+假设你已经对[D2Admin](https://github.com/d2-projects/d2-admin)比较了解, 以下是
+我们对原版D2Admin配置上做出一些改动, 在使用本项目开发前需要了解.
+* Mock开关
+    * 通过`.env`文件中的`MOCK`参数进行控制.
+* Devtool
+    * 改为`source-map`, 原版是`cheap-source-map`. 如果开发时遇到遇到性能问题可以尝试修改这里.
+* 异步组件
+    * 原版[D2Admin](https://github.com/d2-projects/d2-admin) 通过环境变量(development/production)
+    来控制是否[异步加载组件](https://cn.vuejs.org/v2/guide/components-dynamic-async.html#%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6). 
+    但我们在进行模块化改造的时候遇到了不可克服的问题, 所以改成:
+        * 加载D2Admin组件的时候, 不使用异步方式.
+        * 加载module组件的时候, 使用异步方式. 如果开发时遇到遇到性能问题可以尝试改成不使用异步方式.
+
 ### 升级D2Admin
 只需更新本工程, 并拷贝覆盖你自己工程的`/src/d2admin`目录.
