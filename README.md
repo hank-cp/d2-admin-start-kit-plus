@@ -6,8 +6,10 @@ This project is a folk version of [d2-admin-start-kit](https://github.com/d2-pro
 It separates d2 admin internal stuffs and business logic clearly to
 help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickly and easily.
  
- [中文](README.zh.md)
+ [[中文](README.zh.md)]
  
+![](public/image/directory.png?raw=true)
+
 ### Delegate
 [d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus) expose
 `delegate` to integrate your own implementation.
