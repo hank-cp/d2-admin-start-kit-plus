@@ -1,3 +1,7 @@
+![GitHub package.json version](https://img.shields.io/github/package-json/v/hank-cp/d2-admin-start-kit-plus)
+![GitHub last commit](https://img.shields.io/github/last-commit/hank-cp/d2-admin-start-kit-plus)
+![GitHub](https://img.shields.io/github/license/hank-cp/d2-admin-start-kit-plus)
+
 This project is a folk version of [d2-admin-start-kit](https://github.com/d2-projects/d2-admin-start-kit).
 It separates d2 admin internal stuffs and business logic clearly to
 help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickly and easily.

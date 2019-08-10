@@ -1,6 +1,6 @@
 {
   "name": "lolth-client",
-  "version": "0.0.1",
+  "version": "1.7.2",
   "repository": "git@git.dev.tencent.com:hank_cp/lolth-client.git",
   "scripts": {
     "serve": "vue-cli-service serve --open",
