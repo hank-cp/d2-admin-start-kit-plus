@@ -9,7 +9,7 @@
  [English](README.md)
  
 ### 代理Delegate
-[d2-admin-start-kit-module](https://github.com/hank-cp/d2-admin-start-kit-module) 暴露一系列
+[d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus) 暴露一系列
 `delegate`用于整合d2admin.
 * [login.js](/src/d2admin/delegate/login.js) 
 * [menu.js](/src/d2admin/delegate/menu.js)
@@ -18,7 +18,7 @@
 
 ### 模块Module
 一般来说我们开发实际项目的时候都是按模块划分的.
-[d2-admin-start-kit-module](https://github.com/hank-cp/d2-admin-start-kit-module)
+[d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus)
 约定了以下目录结构来组织我们的代码: 
 * [your module]
     * api

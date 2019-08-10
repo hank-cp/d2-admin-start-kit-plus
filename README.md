@@ -9,7 +9,7 @@ help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickl
  [中文](README.zh.md)
  
 ### Delegate
-[d2-admin-start-kit-module](https://github.com/hank-cp/d2-admin-start-kit-module) expose
+[d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus) expose
 `delegate` to integrate your own implementation.
 * [login.js](/src/d2admin/delegate/login.js) 
 * [menu.js](/src/d2admin/delegate/menu.js)
@@ -19,7 +19,7 @@ your own.
 
 ### Module
 Generally we design software architecture in modular way for real project.
-[d2-admin-start-kit-module](https://github.com/hank-cp/d2-admin-start-kit-module)
+[d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus)
 defines following directory structure in convention to organize codes.
 * [your module]
     * api
