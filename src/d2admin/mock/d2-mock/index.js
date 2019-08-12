@@ -48,7 +48,7 @@ const wired = ({ url, type, body }) => {
 
 const setup = (path, method, handle) => {
   Mock.mock(
-    RegExp(path),
+    path,
     method,
     typeof handle === 'function' ? o => handle(wired(o)) : handle
   )

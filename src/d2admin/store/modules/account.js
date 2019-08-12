@@ -13,7 +13,7 @@ export default {
      * @param {Object} loginParam 登录信息
      */
     login ({ dispatch, commit }, loginParam) {
-      let loginPromise = loginDelegate.login(loginParam)
+      let loginPromise = loginDelegate.login({ dispatch, commit }, loginParam)
       loginPromise.then(async ({
         uuid = '', name = '',
         saveToCookie = {},
@@ -23,8 +23,8 @@ export default {
         // 开始请求登录接口
         util.cookies.set('uuid', uuid)
         // 保存信息到cookies
-        _.forEach(saveToCookie, (key) => {
-          util.cookies.set(key, saveToCookie[key])
+        _.forEach(saveToCookie, (value, key) => {
+          util.cookies.set(key, value)
         })
 
         // 设置 vuex 用户信息
@@ -34,17 +34,15 @@ export default {
         const privateDb = await dispatch('d2admin/db/database', {
           user: true
         }, { root: true })
-        _.forEach(saveToPrivate, (key) => {
-          privateDb.set(key, saveToPrivate[key])
+        _.forEach(saveToPrivate, (value, key) => {
+          privateDb.set(key, value).write()
         })
-        privateDb.write()
 
         // 保存信息到公有存储
         const globalDb = await dispatch('d2admin/db/database', {}, { root: true })
-        _.forEach(saveToGlobal, (key) => {
-          globalDb.set(key, saveToGlobal[key])
+        _.forEach(saveToGlobal, (value, key) => {
+          globalDb.set(key, value).write()
         })
-        globalDb.write()
       }).then(async () =>
         loginDelegate.afterLogin({ dispatch, commit })
       ).then(async () =>

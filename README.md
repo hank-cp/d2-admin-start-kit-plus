@@ -38,7 +38,9 @@ We assume you are familiar with [D2Admin](https://github.com/d2-projects/d2-admi
 and we make a little bit changes from original D2Admin configuration. Please be aware
 before start to use this project.
 * Mock switch
-    * it's now control by `MOCK` in `.env` file.
+    * it's now control by `MOCK` in `.env` file
+    * `path` in `mock.js` will not be conver to RegExp anymore, you could choose
+    use regexp for plain text by yourself to match mock URL.
 * Devtool
     * it's now `source-map`, original it's `cheap-source-map`. If you run into
     performance issue, consider modify it.
