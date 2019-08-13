@@ -24,7 +24,7 @@ export default db
  * @param {Object} param defaultValue {*} 初始化默认值
  * @returns {String} 可以直接使用的路径
  */
-export function pathInit ({
+function pathInit ({
   dbName = 'database',
   path = '',
   user = true,
@@ -92,7 +92,11 @@ export function dbGet ({
  * @param {Object} param user {Boolean} 是否区分用户
  */
 export function database ({
-  user = false
+  dbName = 'database',
+  path = '',
+  user = false,
+  validator = () => true,
+  defaultValue = ''
 } = {}) {
   return new Promise(resolve => {
     resolve(db.get(pathInit({

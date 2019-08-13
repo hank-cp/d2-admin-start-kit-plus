@@ -47,7 +47,10 @@ export default {
     database (context, {
       user = false
     } = {}) {
-      return getDatabase({ user })
+      return getDatabase({
+        user,
+        defaultValue: {}
+      })
     },
     /**
      * @description 清空存储数据库对象
@@ -59,7 +62,8 @@ export default {
     } = {}) {
       return getDatabase({
         user,
-        validator: () => false
+        validator: () => false,
+        defaultValue: {}
       })
     },
     /**
@@ -74,7 +78,8 @@ export default {
     } = {}) {
       return getDatabase({
         path: `$page.${router.app.$route[basis]}`,
-        user
+        user,
+        defaultValue: {}
       })
     },
     /**
@@ -89,8 +94,9 @@ export default {
     } = {}) {
       return getDatabase({
         path: `$page.${router.app.$route[basis]}`,
+        user,
         validator: () => false,
-        user
+        defaultValue: {}
       })
     },
     /**
@@ -125,10 +131,9 @@ export default {
       user = false
     }) {
       return dbGet({
-        dbName: 'database',
         path: `$page.${router.app.$route[basis]}.$data`,
-        defaultValue: cloneDeep(instance.$data),
-        user
+        user,
+        defaultValue: cloneDeep(instance.$data)
       })
     },
     /**
@@ -144,7 +149,8 @@ export default {
       return getDatabase({
         path: `$page.${router.app.$route[basis]}.$data`,
         user,
-        validator: () => false
+        validator: () => false,
+        defaultValue: {}
       })
     }
   }
