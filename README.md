@@ -15,6 +15,7 @@ help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickl
 `delegate` to integrate your own implementation.
 * [login.js](/src/d2admin/delegate/login.js) 
 * [menu.js](/src/d2admin/delegate/menu.js)
+* [axios.js](/src/d2admin/delegate/axios.js)
 
 Replace these delegates default implementation [on start up](/src/main.js) with
 your own.
@@ -52,6 +53,7 @@ before start to use this project.
         * Load D2Admin components in sync way.
         * Load module components in async way. If you get performance issue,
         consider change it to sync way.
+* You could now access localStorage database via `util.db.js` without `Vuex`.
     
 ### Upgrade D2Admin
 Pull this project with updates then just copy and replace `/src/d2admin` directory 

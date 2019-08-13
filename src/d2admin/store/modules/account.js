@@ -13,7 +13,7 @@ export default {
      * @param {Object} loginParam 登录信息
      */
     login ({ dispatch, commit }, loginParam) {
-      let loginPromise = loginDelegate.login({ dispatch, commit }, loginParam)
+      let loginPromise = loginDelegate.login(loginParam)
       loginPromise.then(async ({
         uuid = '', name = '',
         saveToCookie = {},
@@ -44,8 +44,6 @@ export default {
           globalDb.set(key, value).write()
         })
       }).then(async () =>
-        loginDelegate.afterLogin({ dispatch, commit })
-      ).then(async () =>
         // 用户登录后从持久化数据加载一系列的设置
         dispatch('load')
       )

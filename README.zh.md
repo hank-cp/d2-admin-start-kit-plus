@@ -15,6 +15,7 @@
 `delegate`用于整合d2admin.
 * [login.js](/src/d2admin/delegate/login.js) 
 * [menu.js](/src/d2admin/delegate/menu.js)
+* [axios.js](/src/d2admin/delegate/axios.js)
 
 在[启动应用时](/src/main.js), 将这些`delegate`替换为你本地项目的实现
 
@@ -47,6 +48,7 @@
     但我们在进行模块化改造的时候遇到了不可克服的问题, 所以改成:
         * 加载D2Admin组件的时候, 不使用异步方式.
         * 加载module组件的时候, 使用异步方式. 如果开发时遇到遇到性能问题可以尝试改成不使用异步方式.
+* `util.db.js`重构, 现在无需通过`Vuex`即可使用localStorage存储工具.
 
 ### 升级D2Admin
 只需更新本工程, 并拷贝覆盖你自己工程的`/src/d2admin`目录.

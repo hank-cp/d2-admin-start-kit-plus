@@ -11,7 +11,7 @@ export default {
    * @returns param saveToPrivate {String} 保存到私有存储的数据, 如用户信息
    * @returns param saveToGlobal {String} 保存到公有存储的数据, 如记住登录信息
    */
-  login (context, loginParam) {
+  login (loginParam) {
     return new Promise((resolve, reject) => {
       // resolve({
       //   uuid: '',
@@ -21,15 +21,6 @@ export default {
       //   saveToGlobal: {}
       // })
       reject(new Error('implement me!'))
-    })
-  },
-
-  /**
-   * 登录成功后的回调方法
-   */
-  afterLogin (context) {
-    return new Promise((resolve) => {
-      resolve()
     })
   }
 }
