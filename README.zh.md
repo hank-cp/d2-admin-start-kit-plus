@@ -49,6 +49,7 @@
         * 加载D2Admin组件的时候, 不使用异步方式.
         * 加载module组件的时候, 使用异步方式. 如果开发时遇到遇到性能问题可以尝试改成不使用异步方式.
 * `util.db.js`重构, 现在无需通过`Vuex`即可使用localStorage存储工具.
+[[PR-211](https://github.com/d2-projects/d2-admin/pull/211)]
 
 ### 升级D2Admin
 只需更新本工程, 并拷贝覆盖你自己工程的`/src/d2admin`目录.

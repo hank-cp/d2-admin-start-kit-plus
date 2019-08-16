@@ -53,7 +53,8 @@ before start to use this project.
         * Load D2Admin components in sync way.
         * Load module components in async way. If you get performance issue,
         consider change it to sync way.
-* You could now access localStorage database via `util.db.js` without `Vuex`.
+* You could now access localStorage database via `util.db.js` without `Vuex`. 
+[[PR-211](https://github.com/d2-projects/d2-admin/pull/211)]
     
 ### Upgrade D2Admin
 Pull this project with updates then just copy and replace `/src/d2admin` directory 

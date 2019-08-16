@@ -22,7 +22,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    delegate.beforeResponse(response)
+    return delegate.beforeResponse(response)
   },
   error => {
     delegate.onResponseError(error)

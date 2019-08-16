@@ -60,8 +60,7 @@ export default {
        * @description 注销
        */
       async function logout () {
-        // 删除cookie
-        util.cookies.remove('token')
+        // 删除登录标志
         util.cookies.remove('uuid')
         // 清空 vuex 用户信息
         await dispatch('d2admin/user/set', {}, { root: true })
