@@ -63,5 +63,9 @@ export default {
   // 是否默认开启页面切换动画
   transition: {
     active: true
+  },
+  axios: {
+    baseURL: process.env.VUE_APP_API,
+    timeout: 500000
   }
 }

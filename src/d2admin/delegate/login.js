@@ -3,7 +3,7 @@
  */
 export default {
   /**
-   * 设置 cookie 一定要存 uuid 和 token 两个 cookie. 整个系统依赖这两个数据进行校验和存储
+   * 登录代理接口
    * @param loginParam 登录信息
    * @returns param uuid {String} 用户身份唯一标识 用户注册的时候确定 并且不可改变 不可重复
    * @returns param name {String} 显示在界面状态栏的用户名
@@ -22,5 +22,12 @@ export default {
       // })
       reject(new Error('implement me!'))
     })
+  },
+  /**
+   * 退出登录代理接口
+   * @return {Promise<Function>}
+   */
+  logout () {
+    return Promise.resolve(() => {})
   }
 }

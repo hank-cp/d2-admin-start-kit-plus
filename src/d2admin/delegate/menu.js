@@ -5,7 +5,7 @@ export default {
   /**
    * 获取Menu
    */
-  load ({ commit }) {
+  loadMenu ({ commit }) {
     return new Promise((resolve) => {
       const menuHeader = require('../../d2admin/menu/header').default
       const menuAside = require('../../d2admin/menu/aside').default

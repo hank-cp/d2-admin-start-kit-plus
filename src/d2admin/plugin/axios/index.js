@@ -1,11 +1,9 @@
 import axios from 'axios'
+import setting from '@/d2admin/setting'
 import delegate from '@/d2admin/delegate/axios'
 
 // 创建一个 axios 实例
-const service = axios.create({
-  baseURL: process.env.VUE_APP_API,
-  timeout: 5000 // 请求超时时间
-})
+const service = axios.create(setting.axios)
 
 // 请求拦截器
 service.interceptors.request.use(
@@ -25,7 +23,8 @@ service.interceptors.response.use(
     return delegate.beforeResponse(response)
   },
   error => {
-    delegate.onResponseError(error)
+    const retry = delegate.onResponseError(error)
+    if (retry) return retry
     return Promise.reject(error)
   }
 )

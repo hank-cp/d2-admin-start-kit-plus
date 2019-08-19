@@ -18,7 +18,7 @@ export default {
      * @param {Object} context vuex context
      */
     load (context) {
-      return menuDelegate.load(context)
+      return menuDelegate.loadMenu(context)
     },
 
     /**
