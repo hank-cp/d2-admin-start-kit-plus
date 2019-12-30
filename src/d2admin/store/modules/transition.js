@@ -10,7 +10,7 @@ export default {
   actions: {
     /**
      * @description 设置开启状态
-     * @param {Object} state vuex state
+     * @param {Object} context
      * @param {Boolean} active 新的状态
      */
     set ({ state, dispatch }, active) {

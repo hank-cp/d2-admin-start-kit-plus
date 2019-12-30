@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     show () {
-      return process.env.NODE_ENV === 'development'
+      return process.env.VUE_APP_SCOURCE_LINK === 'TRUE'
     }
   },
   watch: {

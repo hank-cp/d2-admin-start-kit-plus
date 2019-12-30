@@ -1,5 +1,8 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const VueFilenameInjector = require('./tools/vue-filename-injector')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const VueFilenameInjector = require('@d2-projects/vue-filename-injector')
+const ThemeColorReplacer = require('webpack-theme-color-replacer')
+const forElementUI = require('webpack-theme-color-replacer/forElementUI')
+const cdnDependencies = require('./dependencies-cdn')
 
 // 拼接路径
 const resolve = dir => require('path').join(__dirname, dir)
@@ -9,10 +12,21 @@ process.env.VUE_APP_VERSION = require('./package.json').version
 process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYY-M-D HH:mm:ss')
 
 // 基础路径 注意发布之前要先修改这里
-let publicPath = '/'
+let publicPath = process.env.VUE_APP_PUBLIC_PATH || '/'
+
+// 设置不参与构建的库
+let externals = {}
+cdnDependencies.forEach(package => { externals[package.name] = package.library })
+
+// 引入文件的 cdn 链接
+const cdn = {
+  css: cdnDependencies.map(e => e.css).filter(e => e),
+  js: cdnDependencies.map(e => e.js).filter(e => e)
+}
 
 module.exports = {
-  publicPath, // 根据你的实际情况更改这里
+  // 根据你的实际情况更改这里
+  publicPath,
   lintOnSave: true,
   devServer: {
     publicPath // 和 publicPath 保持一致
@@ -21,12 +35,46 @@ module.exports = {
     loaderOptions: {
       // 设置 scss 公用变量文件
       sass: {
-        data: `@import '~@/assets/style/public.scss';`
+        prependData: `@import '~@/assets/style/public.scss';`
       }
     }
   },
+  configureWebpack: config => {
+    const configNew = {}
+    if (process.env.NODE_ENV === 'production') {
+      configNew.externals = externals
+      configNew.plugins = [
+        // gzip
+        new CompressionWebpackPlugin({
+          filename: '[path].gz[query]',
+          test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
+          threshold: 10240,
+          minRatio: 0.8,
+          deleteOriginalAssets: false
+        })
+      ]
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // 关闭 host check，方便使用 ngrok 之类的内网转发工具
+      configNew.devServer = {
+        disableHostCheck: true
+      }
+    }
+    return configNew
+  },
   // 默认设置: https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-service/lib/config/base.js
   chainWebpack: config => {
+    /**
+     * 添加 CDN 参数到 htmlWebpackPlugin 配置中
+     */
+    config.plugin('html').tap(args => {
+      if (process.env.NODE_ENV === 'production') {
+        args[0].cdn = cdn
+      } else {
+        args[0].cdn = []
+      }
+      return args
+    })
     /**
      * 删除懒加载模块的 prefetch preload，降低带宽压力
      * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
@@ -40,39 +88,32 @@ module.exports = {
     config.resolve
       .symlinks(true)
     config
+      .plugin('theme-color-replacer')
+      .use(ThemeColorReplacer, [{
+        fileName: 'css/theme-colors.[contenthash:8].css',
+        matchColors: [
+          ...forElementUI.getElementUISeries(process.env.VUE_APP_ELEMENT_COLOR) // Element-ui主色系列
+        ],
+        externalCssFiles: [ './node_modules/element-ui/lib/theme-chalk/index.css' ], // optional, String or string array. Set external css files (such as cdn css) to extract colors.
+        changeSelector: forElementUI.changeSelector
+      }])
+    config
       // 开发环境
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('source-map')
       ) // 在WebStorm中调试需要source-map
-      // TRAVIS 构建 vue-loader 添加 filename
-      .when(process.env.VUE_APP_BUILD_MODE === 'TRAVIS' || process.env.NODE_ENV === 'development',
+      // 预览环境构建 vue-loader 添加 filename
+      .when(process.env.VUE_APP_SCOURCE_LINK === 'TRUE',
         VueFilenameInjector(config, {
           propName: process.env.VUE_APP_SOURCE_VIEWER_PROP_NAME
         })
       )
-      // 非开发环境
-      .when(process.env.NODE_ENV !== 'development', config => {
-        config.optimization
-          .minimizer([
-            new UglifyJsPlugin({
-              uglifyOptions: {
-                // 移除 console
-                // 其它优化选项 https://segmentfault.com/a/1190000010874406
-                compress: {
-                  drop_console: true,
-                  drop_debugger: true,
-                  pure_funcs: ['console.log']
-                }
-              }
-            })
-          ])
-      })
-    // i18n
+    // markdown
     config.module
-      .rule('i18n')
-      .resourceQuery(/blockType=i18n/)
-      .use('i18n')
-      .loader('@kazupon/vue-i18n-loader')
+      .rule('md')
+      .test(/\.md$/)
+      .use('text-loader')
+      .loader('text-loader')
       .end()
     // svg
     const svgRule = config.module.rule('svg')
@@ -96,7 +137,6 @@ module.exports = {
       .end()
     // 重新设置 alias
     config.resolve.alias
-      .set('@api', resolve('src/api'))
       .set('@d2views', resolve('src/d2admin/views/system'))
     // 判断环境加入模拟数据
     const entry = config.entry('app')
@@ -104,6 +144,17 @@ module.exports = {
       entry
         .add('@/d2admin/mock')
         .end()
+    }
+  },
+  // 不输出 map 文件
+  productionSourceMap: false,
+  // i18n
+  pluginOptions: {
+    i18n: {
+      locale: 'zh-chs',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: true
     }
   }
 }

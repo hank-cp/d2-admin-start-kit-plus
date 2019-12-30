@@ -14,7 +14,7 @@ export default {
     src: {
       type: String,
       required: false,
-      default: 'https://doc.d2admin.fairyever.com/zh/'
+      default: 'https://d2.pub/zh/doc/d2-admin'
     }
   }
 }

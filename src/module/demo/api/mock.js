@@ -1,6 +1,6 @@
 export default [
   {
-    path: '/demo-api',
+    path: process.env.VUE_APP_API + '/demo-api',
     method: 'get',
     handle () {
       return 'Hello world'

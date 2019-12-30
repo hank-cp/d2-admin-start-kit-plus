@@ -1,12 +1,12 @@
 // Vue
 import Vue from 'vue'
+import i18n from './i18n'
 import App from './App'
 // 核心插件
 import d2Admin from '@/d2admin/plugin/d2admin'
 // store
 import store from '@/store'
-// 多国语
-import i18n from './d2admin/i18n'
+
 // 登录代理
 import loginDelegate from '@/d2admin/delegate/login'
 import loginImpl from '@/module/boot/api/sys.login'

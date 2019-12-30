@@ -1,12 +1,12 @@
 const userDB = [
   { username: 'dev', password: 'dev', uuid: 'admin-uuid', name: '管理员', status: 0 },
   { username: 'user', password: 'user', uuid: 'editor-uuid', name: '编辑', status: 0 },
-  { username: 'user1', password: 'user1', uuid: 'user1-uuid', name: '禁用用户', status: 1 }
+  { username: 'admin', password: 'admin', uuid: 'user1-uuid', name: '禁用用户', status: 1 }
 ]
 
 export default [
   {
-    path: '/login',
+    path: process.env.VUE_APP_API + '/login',
     method: 'post',
     handle ({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.password)
@@ -27,7 +27,7 @@ export default [
     }
   },
   {
-    path: '/login-by-token',
+    path: process.env.VUE_APP_API + '/login-by-token',
     method: 'post',
     handle ({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.loginToken)
