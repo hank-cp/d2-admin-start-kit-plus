@@ -3,7 +3,7 @@ import util from '@/d2admin/libs/util'
 
 export default {
   install (Vue, options) {
-    function writeLog(logType) {
+    function writeLog (logType) {
       return (error, instance, info) => {
         Vue.nextTick(() => {
           // store 追加 log

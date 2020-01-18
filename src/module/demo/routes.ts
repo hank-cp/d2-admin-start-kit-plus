@@ -6,7 +6,7 @@ export default [
       title: '页面 1',
       auth: true
     },
-    component: () => import('@/module/demo/views/page1')
+    component: () => import('@/module/demo/views/page1.vue')
   },
   {
     path: 'page2',
@@ -15,7 +15,7 @@ export default [
       title: '页面 2',
       auth: true
     },
-    component: () => import('./views/page2')
+    component: () => import('./views/page2.vue')
   },
   {
     path: 'page3',
@@ -24,6 +24,6 @@ export default [
       title: '页面 3',
       auth: true
     },
-    component: () => import('./views/page3')
+    component: () => import('./views/page3.vue')
   }
 ]

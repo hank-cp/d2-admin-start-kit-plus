@@ -17,7 +17,7 @@
 * [menu.js](/src/d2admin/delegate/menu.js)
 * [axios.js](/src/d2admin/delegate/axios.js)
 
-在[启动应用时](/src/main.js), 将这些`delegate`替换为你本地项目的实现
+在[启动应用时](/src/main.ts), 将这些`delegate`替换为你本地项目的实现
 
 ### 模块Module
 一般来说我们开发实际项目的时候都是按模块划分的.
@@ -31,7 +31,7 @@
         * [your page].vue
         * [assets/image.jpg]
     * store (TODO) 
-    * routes.js
+    * routes.ts
 
 ### 与原版D2Admin的小差别
 假设您已经对[D2Admin](https://github.com/d2-projects/d2-admin)比较了解, 以下是
