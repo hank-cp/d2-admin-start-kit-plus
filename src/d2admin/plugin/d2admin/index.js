@@ -7,11 +7,11 @@ import 'flex.css'
 import '@/d2admin/components'
 // svg 图标
 import '@/assets/svg-icons'
-
 // 功能插件
 import pluginError from '@/d2admin/plugin/error'
 import pluginLog from '@/d2admin/plugin/log'
 import pluginOpen from '@/d2admin/plugin/open'
+import pluginEvent from '@/d2admin/plugin/event'
 
 export default {
   async install (Vue, options) {
@@ -32,5 +32,6 @@ export default {
     Vue.use(pluginError)
     Vue.use(pluginLog)
     Vue.use(pluginOpen)
+    Vue.use(pluginEvent)
   }
 }

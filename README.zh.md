@@ -34,11 +34,11 @@
     * routes.js
 
 ### 与原版D2Admin的小差别
-假设你已经对[D2Admin](https://github.com/d2-projects/d2-admin)比较了解, 以下是
+假设您已经对[D2Admin](https://github.com/d2-projects/d2-admin)比较了解, 以下是
 我们对原版D2Admin配置上做出一些改动, 在使用本项目开发前需要了解.
 * Mock开关
     * 通过`.env`文件中的`MOCK`参数进行控制.
-    * `mock.js`中的`path`属性不再默认转换为正则表达式. 你可以自行选择使用正则表达式或字符串
+    * `mock.js`中的`path`属性不再默认转换为正则表达式. 您可以自行选择使用正则表达式或字符串
     来匹配URL.
 * Devtool
     * 改为`source-map`, 原版是`cheap-source-map`. 如果开发时遇到遇到性能问题可以尝试修改这里.
@@ -48,8 +48,20 @@
     但我们在进行模块化改造的时候遇到了不可克服的问题, 所以改成:
         * 加载D2Admin组件的时候, 不使用异步方式.
         * 加载module组件的时候, 使用异步方式. 如果开发时遇到遇到性能问题可以尝试改成不使用异步方式.
-* `util.db.js`重构, 现在无需通过`Vuex`即可使用localStorage存储工具.
-[[PR-211](https://github.com/d2-projects/d2-admin/pull/211)]
+* 增加全局事件总线`EventBus`, 用法:
+  ```
+    this.$emitToGlobal('change', event.target.value)
+  ```
+  ```
+    created () {
+      EventBus.$on('update:msgSync', msgSync => {
+        this.eventBusMsg = msgSync
+      }).$on('change', modelVal => {
+        this.eventBusMsg = modelVal
+      })
+    },
+  ```
+        
 
 ### 升级D2Admin
-只需更新本工程, 并拷贝覆盖你自己工程的`/src/d2admin`目录.
+只需更新本工程, 并拷贝覆盖您自己工程的`/src/d2admin`目录.
