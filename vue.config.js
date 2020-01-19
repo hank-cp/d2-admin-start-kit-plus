@@ -16,7 +16,7 @@ let publicPath = process.env.VUE_APP_PUBLIC_PATH || '/'
 
 // 设置不参与构建的库
 let externals = {}
-cdnDependencies.forEach(package => { externals[package.name] = package.library })
+cdnDependencies.forEach(p => { externals[p.name] = p.library })
 
 // 引入文件的 cdn 链接
 const cdn = {
@@ -144,6 +144,12 @@ module.exports = {
       entry
         .add('@/d2admin/mock')
         .end()
+    }
+    // 分析工具
+    if (process.env.npm_config_report) {
+      config
+        .plugin('webpack-bundle-analyzer')
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     }
   },
   // 不输出 map 文件

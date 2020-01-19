@@ -61,7 +61,10 @@
       })
     },
   ```
-        
+* 集成测试环境 by [cypress](https://www.cypress.io/)
+    ```
+    npm run test:e2e
+    ```
 
 ### 升级D2Admin
 只需更新本工程, 并拷贝覆盖您自己工程的`/src/d2admin`目录.
