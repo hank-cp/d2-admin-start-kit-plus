@@ -4,14 +4,13 @@
   "license": "MIT",
   "repository": "git@git.dev.tencent.com:hank_cp/lolth-client.git",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
-    "start": "npm run serve",
-    "dev": "npm run serve",
+    "start": "vue-cli-service serve --open --mode production",
+    "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "build:prod": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint --fix",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e --mode production"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -39,9 +38,10 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.19",
+    "@cypress/webpack-preprocessor": "^4.1.1",
     "@d2-projects/vue-filename-injector": "^1.1.0",
     "@kazupon/vue-i18n-loader": "^0.4.1",
+    "@types/jest": "^24.0.19",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-e2e-cypress": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
@@ -55,6 +55,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.3",
     "compression-webpack-plugin": "^3.0.1",
+    "cypress-vue-unit-test": "^1.11.5",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^9.5.0",
