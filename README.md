@@ -17,7 +17,7 @@ help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickl
 * [menu.js](/src/d2admin/delegate/menu.js)
 * [axios.js](/src/d2admin/delegate/axios.js)
 
-Replace these delegates default implementation [on start up](/src/main.js) with
+Replace these delegates default implementation [on start up](/src/main.ts) with
 your own.
 
 ### Module
