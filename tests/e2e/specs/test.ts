@@ -29,7 +29,7 @@ describe('My First Test', () => {
   })
 
   it('Login out', () => {
-    cy.visit('/')
+    cy.index()
     cy.contains('p', '时间是一切财富中最宝贵的财富')
     cy.login({
       username: 'admin',
