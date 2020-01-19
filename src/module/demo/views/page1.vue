@@ -1,21 +1,19 @@
 <template>
   <d2-container>
-    <template slot="header">Page 1 header</template>
-    {{response}}
+    <template slot="header">{{ header }}</template>
+    {{ response }}
   </d2-container>
 </template>
 
-<script>
-
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import DemoApi from '../api/demo'
 
-export default {
-  name: 'page1',
-  data () {
-    return {
-      response: 'loading'
-    }
-  },
+@Component
+export default class Page1 extends Vue {
+  header: string = 'Page 1 header'
+  response: string = 'loading'
+
   mounted () {
     DemoApi.demoApi().then(resp => {
       this.response = resp

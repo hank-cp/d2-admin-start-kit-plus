@@ -25,6 +25,7 @@ describe('My First Test', () => {
     cy.contains('页面 1').click()
 
     cy.contains('div', 'Page 1 header')
+    cy.contains('div', 'Hello world')
   })
 
   it('Login out', () => {
