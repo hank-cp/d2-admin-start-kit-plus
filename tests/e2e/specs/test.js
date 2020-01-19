@@ -3,7 +3,7 @@
 
 describe('My First Test', () => {
   it('Login in', () => {
-    cy.visit('/')
+    cy.index()
     cy.contains('p', '时间是一切财富中最宝贵的财富')
     cy.login({
       username: 'admin',
@@ -13,8 +13,23 @@ describe('My First Test', () => {
     cy.get('.el-menu--horizontal > .el-submenu > .el-submenu__title').contains('页面')
   })
 
+  it('Switch Page', () => {
+    cy.index()
+    cy.contains('p', '时间是一切财富中最宝贵的财富')
+    cy.login({
+      username: 'admin',
+      password: 'admin'
+    })
+    cy.get('.el-menu--horizontal.el-menu > .is-active > span').contains('首页')
+    cy.get('.el-menu--horizontal > .el-submenu > .el-submenu__title').contains('页面').click()
+    cy.contains('页面 1').click()
+
+    cy.contains('div', 'Page 1 header')
+    cy.contains('div', 'Hello world')
+  })
+
   it('Login out', () => {
-    cy.visit('/')
+    cy.index()
     cy.contains('p', '时间是一切财富中最宝贵的财富')
     cy.login({
       username: 'admin',
