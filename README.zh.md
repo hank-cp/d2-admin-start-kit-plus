@@ -31,7 +31,7 @@
         * [your page].vue
         * [assets/image.jpg]
     * store (TODO) 
-    * routes.ts
+    * routes.js
 
 ### 与原版D2Admin的小差别
 假设您已经对[D2Admin](https://github.com/d2-projects/d2-admin)比较了解, 以下是
@@ -61,7 +61,10 @@
       })
     },
   ```
-        
+* 集成测试环境 by [cypress](https://www.cypress.io/)
+    ```
+    npm run test:e2e
+    ```
 
 ### 升级D2Admin
 只需更新本工程, 并拷贝覆盖您自己工程的`/src/d2admin`目录.

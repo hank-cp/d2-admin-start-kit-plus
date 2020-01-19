@@ -1,25 +1,27 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("index", () => {
+  cy.visit('/')
+})
+
+Cypress.Commands.add('clickLink', (label) => {
+  cy.get('a').contains(label).click()
+})
+
+Cypress.Commands.add('clickButton', (label) => {
+  cy.get('button').contains(label).click()
+})
+
+Cypress.Commands.add('login', ({username, password}) => {
+  cy.get('input[placeholder=用户名]')
+    .clear().type(username)
+
+  cy.get('input[placeholder=密码]')
+    .clear().type(password)
+
+  cy.clickButton('登录')
+})
+
+Cypress.Commands.add('confirmAlert', () => {
+  cy.get('.el-message-box__btns > .el-button--primary').contains("确定").click()
+})
+
+

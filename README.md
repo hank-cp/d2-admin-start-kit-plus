@@ -32,7 +32,7 @@ defines following directory structure in convention to organize codes.
         * [your page].vue
         * [assets/image.jpg]
     * store (TODO) 
-    * routes.ts
+    * routes.js
     
 ### Differences from original D2Admin
 We assume you are familiar with [D2Admin](https://github.com/d2-projects/d2-admin), 
@@ -66,6 +66,10 @@ before start to use this project.
       })
     },
   ```
+* Setup e2e test by [cypress](https://www.cypress.io/)
+    ```
+    npm run test:e2e
+    ```
     
 ### Upgrade D2Admin
 Pull this project with updates then just copy and replace `/src/d2admin` directory 

@@ -13,4 +13,12 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import './commands'
+declare namespace Cypress {
+    interface Chainable {
+        index(): Chainable<Element>
+        login(args: Object): Chainable<Element>
+        clickLink(label: string): Chainable<Element>
+        clickButton(label: string): Chainable<Element>
+        confirmAlert(): Chainable<Element>
+    }
+}
