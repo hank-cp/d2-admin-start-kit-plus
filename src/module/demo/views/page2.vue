@@ -5,12 +5,14 @@
   </d2-container>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-
-@Component
-export default class Page2 extends Vue {
-    header: String = 'Page 2 header'
-    msg: String = 'Hello World'
+<script>
+export default {
+  name: 'page2',
+  data () {
+    return {
+      header: 'Page 2 header',
+      msg: 'Hello world from Javascript'
+    }
+  }
 }
 </script>

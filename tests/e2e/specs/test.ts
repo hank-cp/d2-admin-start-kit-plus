@@ -20,12 +20,23 @@ describe('My First Test', () => {
       username: 'admin',
       password: 'admin'
     })
-    cy.get('.el-menu--horizontal.el-menu > .is-active > span').contains('首页')
-    cy.get('.el-menu--horizontal > .el-submenu > .el-submenu__title').contains('页面').click()
-    cy.contains('页面 1').click()
 
+    // page 1
+    cy.get('.el-menu--horizontal.el-menu > .is-active > span').contains('首页')
+    cy.get('#app > div > div.d2-layout-header-aside-content > div.d2-theme-container > div.d2-theme-container-aside').contains('页面').click()
+    cy.contains('#app > div > div.d2-layout-header-aside-content > div.d2-theme-container > div.d2-theme-container-aside li', '页面 1').click()
     cy.contains('div', 'Page 1 header')
-    cy.contains('div', 'Hello world')
+    cy.contains('div', 'Hello world from API mock')
+
+    // page 2
+    cy.contains('#app > div > div.d2-layout-header-aside-content > div.d2-theme-container > div.d2-theme-container-aside li', '页面 2').click()
+    cy.contains('div', 'Page 2 header')
+    cy.contains('div', 'Hello world from Javascript')
+
+    // page 3
+    cy.contains('#app > div > div.d2-layout-header-aside-content > div.d2-theme-container > div.d2-theme-container-aside li', '页面 3').click()
+    cy.contains('div', 'Page 3 header')
+    cy.contains('div', 'Hello world from Typescript')
   })
 
   it('Login out', () => {

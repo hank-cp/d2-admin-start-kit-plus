@@ -1,13 +1,17 @@
 import axios from '@/d2admin/plugin/axios'
 import qs from 'qs'
+import { LoginDelegateDefault } from '@/d2admin/delegate/login'
+import { delegate } from '@/d2admin/delegate'
+import LoginResult = delegate.LoginResult;
+import LoginParam = delegate.LoginParam;
 
-export default {
-  login ({ username, password, loginToken }) {
+class LoginDelegateImpl extends LoginDelegateDefault {
+  login (loginParam: LoginParam): Promise<LoginResult> {
     return new Promise(async (resolve, reject) => {
-      let resp
-      if (loginToken) {
+      let resp: any
+      if (loginParam.loginToken) {
         resp = await axios.post(`/login-by-token`,
-          qs.stringify({ loginToken })
+          qs.stringify({ loginToken: loginParam.loginParam })
         ).catch(err => {
           console.log('Login failed: ', err)
           reject(err)
@@ -15,16 +19,17 @@ export default {
       } else {
         resp = await axios.post(`/login`,
           qs.stringify({
-            username, password
+            username: loginParam.username,
+            password: loginParam.password
           })
         )
       }
 
-      const saveToGlobal = {}
+      const saveToGlobal: any = {}
       saveToGlobal[resp.principal.username + '-login-token'] = resp['login-token']
-      resolve({
+
+      let loginResult: LoginResult = {
         uuid: resp.principal.username,
-        token: resp['access-token'],
         name: resp.principal.nickName || resp.principal.username,
         saveToCookie: {
           'access-token': resp['access-token'],
@@ -34,7 +39,10 @@ export default {
           principal: resp.principal
         },
         saveToGlobal
-      })
+      }
+      resolve(loginResult)
     })
   }
 }
+
+export default new LoginDelegateImpl()

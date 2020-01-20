@@ -1,15 +1,18 @@
 import store from '@/store'
 import util from '@/d2admin/libs/util'
 import { Message } from 'element-ui'
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { delegate } from '@/d2admin/delegate/index'
+import AxiosDelegate = delegate.AxiosDelegate;
 
 // 创建一个错误
-export function errorCreate (msg) {
+export function errorCreate (msg: string) {
   const error = new Error(msg)
   errorLog(error)
   throw error
 }
 
-export function errorLog (error) {
+export function errorLog (error: Error) {
   // 添加到日志
   store.dispatch('d2admin/log/push', {
     message: '数据请求异常',
@@ -31,7 +34,7 @@ export function errorLog (error) {
   })
 }
 
-export function translateHttpStatus (error) {
+export function translateHttpStatus (error: AxiosError): string {
   if (!error || !error.response) return '未知错误'
   switch (error.response.status) {
     case 400: return '请求错误'
@@ -49,24 +52,20 @@ export function translateHttpStatus (error) {
   return '未知错误'
 }
 
-/**
- * @description Aoxis请求
- */
-export default {
-  /**
-   * 获取Menu
-   */
-  beforeRequest (config) {
+export class AxiosDelegateDefault implements AxiosDelegate {
+  beforeRequest (config: AxiosRequestConfig): AxiosRequestConfig | Promise<AxiosRequestConfig> {
     // 在请求发送之前做一些处理
     const token = util.cookies.get('token')
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
     config.headers['access-token'] = token
     return config
-  },
-  onRequestError (error) {
+  }
+
+  onRequestError (error: AxiosError): void {
     console.log(error)
-  },
-  beforeResponse (response) {
+  }
+
+  beforeResponse (response: AxiosResponse): any {
     // dataAxios 是 axios 返回数据中的 data
     const dataAxios = response.data
     // 这个状态码是和后端约定的
@@ -91,9 +90,20 @@ export default {
           break
       }
     }
-  },
-  onResponseError (error) {
+  }
+
+  onResponseError (error: AxiosError): any {
     error.message = translateHttpStatus(error)
     errorLog(error)
+  }
+}
+
+let INSTANCE = new AxiosDelegateDefault()
+export default {
+  get () {
+    return INSTANCE
+  },
+  set (delegate: AxiosDelegate) {
+    INSTANCE = delegate
   }
 }

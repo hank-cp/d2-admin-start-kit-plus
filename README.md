@@ -38,6 +38,8 @@ defines following directory structure in convention to organize codes.
 We assume you are familiar with [D2Admin](https://github.com/d2-projects/d2-admin), 
 and we make a little bit changes from original D2Admin configuration. Please be aware
 before start to use this project.
+* **Support Typescript**
+    * Means while, it's allow you to keep using Javascript.
 * Mock switch
     * it's now control by `MOCK` in `.env` file
     * `path` in `mock.js` will not be conver to RegExp anymore, you could choose

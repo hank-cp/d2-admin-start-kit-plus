@@ -15,7 +15,7 @@ import router from './router'
 import { frameInRoutes } from '@/router/routes'
 
 // 设置登录代理
-loginDelegate.login = loginImpl.login
+loginDelegate.set(loginImpl)
 
 // 核心插件
 Vue.use(d2Admin)

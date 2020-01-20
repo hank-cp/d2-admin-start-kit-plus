@@ -12,7 +12,7 @@ import DemoApi from '../api/demo'
 @Component
 export default class Page1 extends Vue {
   header: string = 'Page 1 header'
-  response: string = 'loading'
+  response: any = 'loading'
 
   mounted () {
     DemoApi.demoApi().then(resp => {

@@ -13,7 +13,7 @@ export default {
      * @param {Object} loginParam 登录信息
      */
     login ({ dispatch }, loginParam) {
-      let loginPromise = loginDelegate.login(loginParam)
+      let loginPromise = loginDelegate.get().login(loginParam)
       loginPromise.then(async ({
         uuid = '', name = '',
         saveToCookie = {},
@@ -64,7 +64,7 @@ export default {
         util.cookies.remove('uuid')
         // 清空 vuex 用户信息
         await dispatch('d2admin/user/set', {}, { root: true })
-        await loginDelegate.logout()
+        await loginDelegate.get().logout()
         // 跳转路由
         router.push({
           name: 'login'

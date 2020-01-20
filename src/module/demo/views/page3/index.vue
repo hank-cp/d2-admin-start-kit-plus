@@ -11,6 +11,6 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component
 export default class Page3 extends Vue {
   header: String = 'Page 3 header'
-  msg: String = 'Hello World'
+  msg: String = 'Hello world from Typescript'
 }
 </script>

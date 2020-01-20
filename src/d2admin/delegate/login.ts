@@ -1,7 +1,12 @@
+import { delegate } from '@/d2admin/delegate/index'
+import LoginDelegate = delegate.LoginDelegate
+import LoginParam = delegate.LoginParam
+import LoginResult = delegate.LoginResult
+
 /**
  * @description 登录代理, 提供具体的登录方法
  */
-export default {
+export class LoginDelegateDefault implements LoginDelegate {
   /**
    * 登录代理接口
    * @param loginParam 登录信息
@@ -11,7 +16,7 @@ export default {
    * @returns param saveToPrivate {String} 保存到私有存储的数据, 如用户信息
    * @returns param saveToGlobal {String} 保存到公有存储的数据, 如记住登录信息
    */
-  login (loginParam) {
+  login (loginParam: LoginParam): Promise<LoginResult> {
     return new Promise((resolve, reject) => {
       // resolve({
       //   uuid: '',
@@ -22,12 +27,23 @@ export default {
       // })
       reject(new Error('implement me!'))
     })
-  },
+  }
+
   /**
    * 退出登录代理接口
    * @return {Promise<Function>}
    */
-  logout () {
+  logout (): Promise<Function> {
     return Promise.resolve(() => {})
+  }
+}
+
+let INSTANCE = new LoginDelegateDefault()
+export default {
+  get () {
+    return INSTANCE
+  },
+  set (delegate: LoginDelegate) {
+    INSTANCE = delegate
   }
 }

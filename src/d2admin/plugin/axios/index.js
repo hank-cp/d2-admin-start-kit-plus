@@ -8,11 +8,11 @@ const service = axios.create(setting.axios)
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    return delegate.beforeRequest(config)
+    return delegate.get().beforeRequest(config)
   },
   error => {
     // 发送失败
-    delegate.onRequestError(error)
+    delegate.get().onRequestError(error)
     Promise.reject(error)
   }
 )
@@ -20,10 +20,10 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    return delegate.beforeResponse(response)
+    return delegate.get().beforeResponse(response)
   },
   error => {
-    const retry = delegate.onResponseError(error)
+    const retry = delegate.get().onResponseError(error)
     if (retry) return retry
     return Promise.reject(error)
   }
