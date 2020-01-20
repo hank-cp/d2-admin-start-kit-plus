@@ -17,7 +17,7 @@
 * [menu.js](/src/d2admin/delegate/menu.js)
 * [axios.js](/src/d2admin/delegate/axios.js)
 
-在[启动应用时](/src/main.js), 将这些`delegate`替换为你本地项目的实现
+在[启动应用时](/src/main.ts), 将这些`delegate`替换为你本地项目的实现
 
 ### 模块Module
 一般来说我们开发实际项目的时候都是按模块划分的.
@@ -66,5 +66,17 @@
     npm run test:e2e
     ```
 
+### Migrate to TypeScript
+分支 `typescript` 是[d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus)
+的TypeScript版本. 您可以直接从该分支启动您的项目, 或者通过创建Pacth的方式, 将您的项目迁移到TypeScript.
+
+创建一个patch:   
+```
+git diff checkout typescript > ../migrate_to_ts.patch
+```
+之后建议通过git GUI工具导入patch, 导入过程根据实际情况修改您自己的项目文件.
+
 ### 升级D2Admin
-只需更新本工程, 并拷贝覆盖您自己工程的`/src/d2admin`目录.
+通常情况下, 只需更新本工程, 并拷贝覆盖您自己工程的`/src/d2admin`目录即可. 有时大版本更新可能也会修改
+根目录下的一些配置文件, 您可以使用文件比较工具来同步文件. 总之, `src/module`会始终保持与D2Admin的框架文件
+隔离, 在同步文件时切记将其排除在外.

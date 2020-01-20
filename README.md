@@ -17,7 +17,7 @@ help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickl
 * [menu.js](/src/d2admin/delegate/menu.js)
 * [axios.js](/src/d2admin/delegate/axios.js)
 
-Replace these delegates default implementation [on start up](/src/main.js) with
+Replace these delegates default implementation [on start up](/src/main.ts) with
 your own.
 
 ### Module
@@ -70,10 +70,22 @@ before start to use this project.
     ```
     npm run test:e2e
     ```
+  
+### Migrate to TypeScript
+Branch `typescript` is the TypeScript version of [d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus).
+You could simply start from it. Or create a patch later when you decide to migrate to TypeScript.
+
+To create a patch:   
+```
+git diff checkout typescript > ../migrate_to_ts.patch
+```
+Then apply it to your own project accordingly.
     
 ### Upgrade D2Admin
 Pull this project with updates then just copy and replace `/src/d2admin` directory 
-of your own project should be just fine. 
+of your own project should be just fine. Some time you will also have to update configuration
+files under root folder. Anyway, keep your `src/module` folder always excluded during sync, which
+is the place of all your treasures.
 
 ### TODO
 * Support Vuex module register dynamically.

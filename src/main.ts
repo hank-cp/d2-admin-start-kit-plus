@@ -1,7 +1,7 @@
 // Vue
 import Vue from 'vue'
 import i18n from './i18n'
-import App from './App'
+import App from './App.vue'
 // 核心插件
 import d2Admin from '@/d2admin/plugin/d2admin'
 // store
