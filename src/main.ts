@@ -12,7 +12,7 @@ import loginDelegate from '@/d2admin/delegate/login'
 import loginImpl from '@/module/boot/api/sys.login'
 // 菜单和路由设置
 import router from './router'
-import { frameInRoutes } from '@/router/routes'
+import ModuleLoader from '@/d2admin/module'
 
 // 设置登录代理
 loginDelegate.set(loginImpl)
@@ -27,7 +27,9 @@ new Vue({
   render: h => h(App),
   created () {
     // 处理路由 得到每一级的路由设置
-    this.$store.commit('d2admin/page/init', frameInRoutes)
+    ModuleLoader.hooks.forEach(hook => hook.onAppStarted())
+
+    this.$store.commit('d2admin/page/init', ModuleLoader.routes)
   },
   mounted () {
     // 展示系统信息

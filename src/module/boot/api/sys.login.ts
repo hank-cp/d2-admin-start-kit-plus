@@ -22,7 +22,10 @@ class LoginDelegateImpl extends LoginDelegateDefault {
             username: loginParam.username,
             password: loginParam.password
           })
-        )
+        ).catch(err => {
+          console.log('Login failed: ', err)
+          reject(err)
+        })
       }
 
       const saveToGlobal: any = {}

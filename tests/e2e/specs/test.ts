@@ -13,6 +13,17 @@ describe('My First Test', () => {
     cy.get('.el-menu--horizontal > .el-submenu > .el-submenu__title').contains('页面')
   })
 
+  it('Login in Failed', () => {
+    cy.index()
+    cy.contains('p', '时间是一切财富中最宝贵的财富')
+    cy.login({
+      username: 'admin',
+      password: 'asdf'
+    })
+    // loading mask is dismissed
+    cy.get('.page-login--form').contains('登录中……')
+  })
+
   it('Switch Page', () => {
     cy.index()
     cy.contains('p', '时间是一切财富中最宝贵的财富')

@@ -1,13 +1,6 @@
 import layoutHeaderAside from '@/d2admin/layout/header-aside'
+import ModuleLoader from '@/d2admin/module'
 import _ from 'lodash'
-
-function loadModuleRoutes (routes) {
-  const req = context => context.keys().map(context)
-  return _.flatten(req(require.context('@/module', true, /routes\.js$/))
-    .filter(e => e.default)
-    .map(e => e.default))
-    .forEach(e => routes.push(e))
-}
 
 /**
  * 在主框架内显示
@@ -54,7 +47,7 @@ const frameIn = [
     ]
   }
 ]
-loadModuleRoutes(frameIn[0].children)
+frameIn[0].children = _.concat(frameIn[0].children, ModuleLoader.routes)
 
 /**
  * 在主框架之外显示

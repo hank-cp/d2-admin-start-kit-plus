@@ -4,22 +4,32 @@ import router from '@/router'
 import loginDelegate from '@/d2admin/delegate/login'
 import _ from 'lodash'
 
+import ModuleLoader from '@/d2admin/module'
+
 export default {
   namespaced: true,
+  state: {
+    // 登录连接Loading状态
+    loading: false,
+    // 登录初始化加载中状态
+    loadingText: '登录中……'
+  },
   actions: {
     /**
      * @description 登录
      * @param {Object} param context
      * @param {Object} loginParam 登录信息
      */
-    login ({ dispatch }, loginParam) {
-      let loginPromise = loginDelegate.get().login(loginParam)
-      loginPromise.then(async ({
+    login ({ state, dispatch, commit }, loginParam) {
+      commit('startLoading')
+      return loginDelegate.get().login(loginParam).then(({
         uuid = '', name = '',
         saveToCookie = {},
         saveToPrivate = {},
         saveToGlobal = {}
       }) => {
+        commit('startLoading', '初始化中……')
+
         // 开始请求登录接口
         util.cookies.set('uuid', uuid)
         // 保存信息到cookies
@@ -27,27 +37,34 @@ export default {
           util.cookies.set(key, value)
         })
 
-        // 设置 vuex 用户信息
-        await dispatch('d2admin/user/set', { name }, { root: true })
-
-        // 保存信息到私有存储
-        const privateDb = await dispatch('d2admin/db/database', {
-          user: true
-        }, { root: true })
-        _.forEach(saveToPrivate, (value, key) => {
-          privateDb.set(key, value).write()
+        return Promise.all([
+          // 设置 vuex 用户信息
+          dispatch('d2admin/user/set', { name }, { root: true }),
+          // 保存信息到私有存储
+          dispatch('d2admin/db/database', { user: true }, { root: true }).then(async (privateDb) => {
+            await Promise.all(_.map(saveToPrivate, (value, key) => {
+              return privateDb.set(key, value).write()
+            }))
+          }),
+          // 保存信息到公有存储
+          dispatch('d2admin/db/database', {}, { root: true }).then(async (globalDb) => {
+            await Promise.all(_.map(saveToGlobal, (value, key) => {
+              return globalDb.set(key, value).write()
+            }))
+          }),
+          // module hook回调
+          ...ModuleLoader.hooks.map(hook => hook.onLoggedIn())
+        ]).then(() => {
+          // 用户登录后从持久化数据加载一系列的设置
+          dispatch('load')
+        }).finally(() => {
+          // 结束loading状态
+          commit('stopLoading')
         })
-
-        // 保存信息到公有存储
-        const globalDb = await dispatch('d2admin/db/database', {}, { root: true })
-        _.forEach(saveToGlobal, (value, key) => {
-          globalDb.set(key, value).write()
-        })
-      }).then(async () =>
-        // 用户登录后从持久化数据加载一系列的设置
-        dispatch('load')
-      )
-      return loginPromise
+      }).catch(() => {
+        // 结束loading状态
+        commit('stopLoading')
+      })
     },
 
     /**
@@ -55,19 +72,26 @@ export default {
      * @param {Object} context
      * @param {Object} payload confirm {Boolean} 是否需要确认
      */
-    logout ({ commit, dispatch }, { confirm = false } = {}) {
+    logout ({ state, commit, dispatch }, { confirm = false } = {}) {
       /**
        * @description 注销
        */
-      async function logout () {
+      function logout () {
+        state.logoutLoading = true
         // 删除登录标志
         util.cookies.remove('uuid')
         // 清空 vuex 用户信息
-        await dispatch('d2admin/user/set', {}, { root: true })
-        await loginDelegate.get().logout()
-        // 跳转路由
-        router.push({
-          name: 'login'
+        return Promise.all([
+          dispatch('d2admin/user/set', {}, { root: true }),
+          loginDelegate.get().logout(),
+          ...ModuleLoader.hooks.map(hook => hook.onLoggedOut())
+        ]).then(() => {
+          state.logoutLoading = false
+
+          // 跳转路由
+          router.push({
+            name: 'login'
+          })
         })
       }
       // 判断是否需要确认
@@ -75,17 +99,15 @@ export default {
         commit('d2admin/gray/set', true, { root: true })
         MessageBox.confirm('确定要注销当前用户吗', '注销用户', {
           type: 'warning'
+        }).then(() => {
+          commit('d2admin/gray/set', false, { root: true })
+          logout()
+        }).catch(() => {
+          commit('d2admin/gray/set', false, { root: true })
+          Message({
+            message: '取消注销操作'
+          })
         })
-          .then(() => {
-            commit('d2admin/gray/set', false, { root: true })
-            logout()
-          })
-          .catch(() => {
-            commit('d2admin/gray/set', false, { root: true })
-            Message({
-              message: '取消注销操作'
-            })
-          })
       } else {
         logout()
       }
@@ -115,6 +137,24 @@ export default {
         // end
         resolve()
       })
+    }
+  },
+  mutations: {
+    /**
+     * @description 设置 登录加载状态
+     * @param {Object} state state
+     * @param {Boolean} text 加载状态文字
+     */
+    startLoading (state, text) {
+      state.loading = true
+      if (text) state.loadingText = text
+    },
+    /**
+     * @description 关闭 登录加载状态
+     * @param {Object} state state
+     */
+    stopLoading (state) {
+      state.loading = false
     }
   }
 }
