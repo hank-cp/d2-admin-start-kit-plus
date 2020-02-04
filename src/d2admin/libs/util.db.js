@@ -56,7 +56,7 @@ export function dbSet ({
   value = '',
   user = false
 }) {
-  db.set(pathInit({
+  return db.set(pathInit({
     dbName,
     path,
     user

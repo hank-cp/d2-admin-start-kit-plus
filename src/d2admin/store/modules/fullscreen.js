@@ -15,7 +15,6 @@ export default {
       return new Promise(resolve => {
         if (screenfull.enabled) {
           screenfull.on('change', () => {
-            console.log('1')
             if (!screenfull.isFullscreen) {
               commit('set', false)
             }
