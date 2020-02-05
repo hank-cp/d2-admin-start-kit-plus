@@ -53,7 +53,7 @@ export default {
             }))
           }),
           // module hook回调
-          ...ModuleLoader.hooks.map(hook => hook.onLoggedIn())
+          ...ModuleLoader.hooks.filter(hook => hook.onLoggedIn).map(hook => hook.onLoggedIn())
         ]).then(() => {
           // 用户登录后从持久化数据加载一系列的设置
           dispatch('load')
@@ -84,7 +84,7 @@ export default {
         return Promise.all([
           dispatch('d2admin/user/set', {}, { root: true }),
           loginDelegate.get().logout(),
-          ...ModuleLoader.hooks.map(hook => hook.onLoggedOut())
+          ...ModuleLoader.hooks.filter(hook => hook.onLoggedOut()).map(hook => hook.onLoggedOut())
         ]).then(() => {
           state.logoutLoading = false
 

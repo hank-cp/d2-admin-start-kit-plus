@@ -32,11 +32,15 @@
         * [assets/image.jpg]
     * store (TODO) 
     * routes.js
+    * hook.js
+    
+### ModuleHook
+每个功能模块可通过[ModuleHook](/src/d2admin/module/types.d.ts)在整个应用生命周期中挂勾子
 
-### 与原版D2Admin的小差别
+### 与原版D2Admin的差别
 假设您已经对[D2Admin](https://github.com/d2-projects/d2-admin)比较了解, 以下是
 我们对原版D2Admin配置上做出一些改动, 在使用本项目开发前需要了解.
-* **支持Typescript**. 同时你可以继续使用Javascript. 
+* **支持Typescript**. 同时您可以继续使用Javascript. 
 * Mock开关
     * 通过`.env`文件中的`MOCK`参数进行控制.
     * `mock.js`中的`path`属性不再默认转换为正则表达式. 您可以自行选择使用正则表达式或字符串

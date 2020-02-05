@@ -12,10 +12,10 @@ help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickl
 
 ### Delegate
 [d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus) expose
-`delegate` to integrate your own implementation.
+`delegate` to integrate with your own implementation.
 * [login.js](/src/d2admin/delegate/login.js) 
 * [menu.js](/src/d2admin/delegate/menu.js)
-* [axios.js](/src/d2admin/delegate/axios.js)
+* [axios.js](/src/d2admin/delegate/axios.js) 
 
 Replace these delegates default implementation [on start up](/src/main.ts) with
 your own.
@@ -33,6 +33,10 @@ defines following directory structure in convention to organize codes.
         * [assets/image.jpg]
     * store (TODO) 
     * routes.js
+
+### ModuleHook
+[ModuleHook](/src/d2admin/module/types.d.ts) provides global application lifecycle
+hook for each module.
     
 ### Differences from original D2Admin
 We assume you are familiar with [D2Admin](https://github.com/d2-projects/d2-admin), 

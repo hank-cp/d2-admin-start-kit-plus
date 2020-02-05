@@ -6,7 +6,6 @@ import App from './App.vue'
 import d2Admin from '@/d2admin/plugin/d2admin'
 // store
 import store from '@/store'
-
 // 登录代理
 import loginDelegate from '@/d2admin/delegate/login'
 import loginImpl from '@/module/boot/api/sys.login'
@@ -27,7 +26,9 @@ new Vue({
   render: h => h(App),
   created () {
     // 处理路由 得到每一级的路由设置
-    ModuleLoader.hooks.forEach(hook => hook.onAppStarted())
+    ModuleLoader.hooks.forEach(hook => {
+      if (hook.onAppStarted) hook.onAppStarted()
+    })
 
     this.$store.commit('d2admin/page/init', ModuleLoader.routes)
   },
