@@ -84,7 +84,7 @@ export default {
         return Promise.all([
           dispatch('d2admin/user/set', {}, { root: true }),
           loginDelegate.get().logout(),
-          ...ModuleLoader.hooks.filter(hook => hook.onLoggedOut()).map(hook => hook.onLoggedOut())
+          ...ModuleLoader.hooks.filter(hook => hook.onLoggedOut).map(hook => hook.onLoggedOut())
         ]).then(() => {
           state.logoutLoading = false
 

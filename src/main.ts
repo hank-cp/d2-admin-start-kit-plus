@@ -25,11 +25,12 @@ new Vue({
   i18n,
   render: h => h(App),
   created () {
-    // 处理路由 得到每一级的路由设置
+    // ModuleHook启动回调
     ModuleLoader.hooks.forEach(hook => {
       if (hook.onAppStarted) hook.onAppStarted()
     })
 
+    // 处理路由 得到每一级的路由设置
     this.$store.commit('d2admin/page/init', ModuleLoader.routes)
   },
   mounted () {
