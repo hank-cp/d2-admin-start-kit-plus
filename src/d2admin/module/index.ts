@@ -1,9 +1,9 @@
 import { RouterOptions } from 'vue-router/types/router'
-import { ModuleHook, ModuleHooks, ModuleRoutes } from '@/d2admin/module/types'
+import { ModuleHook } from '@/d2admin/module/types'
 import _ from 'lodash'
 
 function scanModuleConfigs (filename : string): any {
-  const moduleConfig: ModuleRoutes = {}
+  const moduleConfig: { [moduleName: string]: RouterOptions[] } = {}
   const push = (context: __WebpackModuleApi.RequireContext) => context.keys().map(key => {
     let module = context(key)
     if (module.default) moduleConfig[key] = module.default
@@ -22,8 +22,8 @@ function scanModuleConfigs (filename : string): any {
 }
 
 export class ModuleLoader {
-  private readonly moduleRoutes: ModuleRoutes
-  private readonly moduleHooks: ModuleHooks
+  private readonly moduleRoutes: { [moduleName: string]: RouterOptions[] }
+  private readonly moduleHooks: { [moduleName: string]: ModuleHook }
 
   constructor () {
     this.moduleRoutes = scanModuleConfigs('routes')

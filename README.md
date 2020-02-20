@@ -44,6 +44,9 @@ and we make a little bit changes from original D2Admin configuration. Please be 
 before start to use this project.
 * **Support Typescript**
     * Means while, it's allow you to keep using Javascript.
+    * We recommend to use [vue-class-component](https://github.com/vuejs/vue-class-component)
+      and [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
+      to organize your vue code.
 * Mock switch
     * it's now control by `MOCK` in `.env` file
     * `path` in `mock.js` will not be conver to RegExp anymore, you could choose
@@ -51,14 +54,14 @@ before start to use this project.
 * Devtool
     * it's now `source-map`, original it's `cheap-source-map`. If you run into
     performance issue, consider modify it.
-* Async Component
+* Async Vue Component
     * Originally [D2Admin](https://github.com/d2-projects/d2-admin) switch
     [sync/async Vue component](https://vuejs.org/v2/guide/components-dynamic-async.html) 
     loading by env (development/production). But we
     have difficulty to handle this in module way with webpack. So we change it to:
         * Load D2Admin components in sync way.
         * Load module components in async way. If you get performance issue,
-        consider change it to sync way.
+        consider change it to sync way.  
 * Add a global `EventBus`, usage:
   ```
     this.$emitToGlobal('change', event.target.value)

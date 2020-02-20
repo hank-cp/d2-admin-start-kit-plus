@@ -35,8 +35,7 @@ export function pathInit ({
   const currentPath = `${dbName}.${user ? `user.${uuid}` : 'public'}${path ? `.${path}` : ''}`
   const value = db.get(currentPath).value()
   if (!(value !== undefined && validator(value))) {
-    db
-      .set(currentPath, defaultValue)
+    db.set(currentPath, defaultValue)
       .write()
   }
   return currentPath
@@ -56,11 +55,26 @@ export function dbSet ({
   value = '',
   user = false
 }) {
-  return db.set(pathInit({
-    dbName,
-    path,
-    user
-  }), value).write()
+  return db.set(pathInit({ dbName, path, user }), value).write()
+}
+
+/**
+ * @description 将数据存储到指定位置 | 路径不存在会自动初始化
+ * @description 效果类似于取值 dbName.path = value
+ * @param {Object} payload dbName {String} 数据库名称
+ * @param {Object} payload path {String} 存储路径
+ * @param {Object} payload value {*} 需要存储的值
+ * @param {Object} payload user {Boolean} 是否区分用户
+ */
+export function dbSetAsync ({
+  dbName = 'database',
+  path = '',
+  value = '',
+  user = false
+}) {
+  return new Promise(resolve => {
+    resolve(dbSet({ dbName, path, value, user }))
+  })
 }
 
 /**
@@ -77,13 +91,27 @@ export function dbGet ({
   defaultValue = '',
   user = false
 }) {
+  return cloneDeep(db.get(
+    pathInit({ dbName, path, user, defaultValue })
+  ).value())
+}
+
+/**
+ * @description 获取数据
+ * @description 效果类似于取值 dbName.path || defaultValue
+ * @param {Object} payload dbName {String} 数据库名称
+ * @param {Object} payload path {String} 存储路径
+ * @param {Object} payload defaultValue {*} 取值失败的默认值
+ * @param {Object} payload user {Boolean} 是否区分用户
+ */
+export function dbGetAsync ({
+  dbName = 'database',
+  path = '',
+  defaultValue = '',
+  user = false
+}) {
   return new Promise(resolve => {
-    resolve(cloneDeep(db.get(pathInit({
-      dbName,
-      path,
-      user,
-      defaultValue
-    })).value()))
+    resolve(dbGet({ dbName, path, defaultValue, user }))
   })
 }
 
@@ -98,9 +126,23 @@ export function database ({
   validator = () => true,
   defaultValue = ''
 } = {}) {
+  return db.get(
+    pathInit({ dbName, path, user, validator, defaultValue })
+  )
+}
+
+/**
+ * @description 获取存储数据库对象
+ * @param {Object} payload user {Boolean} 是否区分用户
+ */
+export function databaseAsync ({
+  dbName = 'database',
+  path = '',
+  user = false,
+  validator = () => true,
+  defaultValue = ''
+} = {}) {
   return new Promise(resolve => {
-    resolve(db.get(pathInit({
-      dbName, path, user, validator, defaultValue
-    })))
+    resolve(database({ dbName, path, user, validator, defaultValue }))
   })
 }

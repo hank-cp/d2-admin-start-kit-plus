@@ -1,25 +1,35 @@
 // Vue
 import Vue from 'vue'
-import i18n from './i18n'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
+
 import App from './App.vue'
-// 核心插件
+// D2admin
 import d2Admin from '@/d2admin/plugin/d2admin'
-// store
 import store from '@/store'
-// 登录代理
+import i18n from './i18n'
+// 代理 - 登录
 import loginDelegate from '@/d2admin/delegate/login'
 import loginImpl from '@/module/boot/api/sys.login'
-// 菜单和路由设置
+// 代理 - Axios
+// 代理 - menu
+// 路由设置
 import router from './router'
 import ModuleLoader from '@/d2admin/module'
 
-// 设置登录代理
-loginDelegate.set(loginImpl)
-
-// 核心插件
+//* **************************************************************************
+// D2Admin
+//* **************************************************************************
 Vue.use(d2Admin)
 
-new Vue({
+loginDelegate.set(loginImpl)
+// axiosDelegate.set(axiosImpl)
+// menuDelegate.set(menuImpl)
+
+//* **************************************************************************
+// vueOptions
+//* **************************************************************************
+
+const vueOptions: ThisTypedComponentOptionsWithRecordProps<Vue, any, any, any, any> = {
   router,
   store,
   i18n,
@@ -43,4 +53,11 @@ new Vue({
     // 初始化全屏监听
     this.$store.dispatch('d2admin/fullscreen/listen')
   }
-}).$mount('#app')
+}
+
+// ModuleHook加载回调
+ModuleLoader.hooks.forEach(hook => {
+  if (hook.onModuleLoaded) hook.onModuleLoaded(vueOptions)
+})
+
+export default new Vue(vueOptions).$mount('#app')

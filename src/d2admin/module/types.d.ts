@@ -1,17 +1,11 @@
-import { RouterOptions } from 'vue-router'
+import { ComponentOptions } from 'vue'
 
 declare interface ModuleHook {
-  onAppStarted?(): Promise<void>
+  onModuleLoaded?(vueOption: ComponentOptions<any>): any
 
-  onLoggedIn?(): Promise<void>
+  onAppStarted?(): any
 
-  onLoggedOut?(): Promise<void>
-}
+  onLoggedIn?(): Promise<any>
 
-declare interface ModuleRoutes {
-  [moduleName: string]: RouterOptions
-}
-
-declare interface ModuleHooks {
-  [moduleName: string]: ModuleHook
+  onLoggedOut?(): Promise<any>
 }

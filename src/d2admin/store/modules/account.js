@@ -51,19 +51,26 @@ export default {
             await Promise.all(_.map(saveToGlobal, (value, key) => {
               return globalDb.set(key, value).write()
             }))
-          }),
+          })
+        ]).then(async () => {
           // module hook回调
-          ...ModuleLoader.hooks.filter(hook => hook.onLoggedIn).map(hook => hook.onLoggedIn())
-        ]).then(() => {
+          for (const hook of ModuleLoader.hooks.filter(hook => hook.onLoggedIn)) {
+            await hook.onLoggedIn()
+          }
+          // Promise.all([
+          //   ...ModuleLoader.hooks.filter(hook => hook.onLoggedIn).map(hook => hook.onLoggedIn())
+          // ])
+        }).then(() => {
           // 用户登录后从持久化数据加载一系列的设置
           dispatch('load')
         }).finally(() => {
           // 结束loading状态
           commit('stopLoading')
         })
-      }).catch(() => {
+      }).catch((err) => {
         // 结束loading状态
         commit('stopLoading')
+        throw err
       })
     },
 
@@ -117,26 +124,24 @@ export default {
      * @param {Object} context
      */
     load ({ dispatch }) {
-      return new Promise(async resolve => {
+      return Promise.all([
         // DB -> store 加载用户名
-        await dispatch('d2admin/user/load', null, { root: true })
+        dispatch('d2admin/user/load', null, { root: true }),
         // DB -> store 加载菜单
-        await dispatch('d2admin/menu/load', null, { root: true })
+        dispatch('d2admin/menu/load', null, { root: true }),
         // DB -> store 加载主题
-        await dispatch('d2admin/theme/load', null, { root: true })
+        dispatch('d2admin/theme/load', null, { root: true }),
         // DB -> store 加载页面过渡效果设置
-        await dispatch('d2admin/transition/load', null, { root: true })
+        dispatch('d2admin/transition/load', null, { root: true }),
         // DB -> store 持久化数据加载上次退出时的多页列表
-        await dispatch('d2admin/page/openedLoad', null, { root: true })
+        dispatch('d2admin/page/openedLoad', null, { root: true }),
         // DB -> store 持久化数据加载侧边栏折叠状态
-        await dispatch('d2admin/menu/asideCollapseLoad', null, { root: true })
+        dispatch('d2admin/menu/asideCollapseLoad', null, { root: true }),
         // DB -> store 持久化数据加载全局尺寸
-        await dispatch('d2admin/size/load', null, { root: true })
+        dispatch('d2admin/size/load', null, { root: true }),
         // DB -> store 持久化数据加载颜色设置
-        await dispatch('d2admin/color/load', null, { root: true })
-        // end
-        resolve()
-      })
+        dispatch('d2admin/color/load', null, { root: true })
+      ])
     }
   },
   mutations: {

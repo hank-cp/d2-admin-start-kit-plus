@@ -3,7 +3,7 @@ import util from '@/d2admin/libs/util'
 import { Message } from 'element-ui'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { delegate } from '@/d2admin/delegate/index'
-import AxiosDelegate = delegate.AxiosDelegate;
+import AxiosDelegate = delegate.AxiosDelegate
 
 // 创建一个错误
 export function errorCreate (msg: string) {
@@ -12,7 +12,7 @@ export function errorCreate (msg: string) {
   throw error
 }
 
-export function errorLog (error: Error) {
+export function errorLog (error: Error, toast: boolean = true) {
   // 添加到日志
   store.dispatch('d2admin/log/push', {
     message: '数据请求异常',
@@ -27,11 +27,13 @@ export function errorLog (error: Error) {
     console.log(error)
   }
   // 显示提示
-  Message({
-    message: error.message,
-    type: 'error',
-    duration: 5 * 1000
-  })
+  if (toast) {
+    Message({
+      message: error.message,
+      type: 'error',
+      duration: 5 * 1000
+    })
+  }
 }
 
 export function translateHttpStatus (error: AxiosError): string {

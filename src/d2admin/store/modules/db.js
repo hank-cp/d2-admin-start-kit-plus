@@ -1,6 +1,6 @@
 import router from '@/router'
 import { cloneDeep } from 'lodash'
-import { database as getDatabase, dbGet, dbSet } from '@/d2admin/libs/util.db'
+import { databaseAsync as getDatabase, dbGetAsync, dbSet } from '@/d2admin/libs/util.db'
 
 export default {
   namespaced: true,
@@ -37,7 +37,7 @@ export default {
       defaultValue = '',
       user = false
     }) {
-      return dbGet({ dbName, path, defaultValue, user })
+      return dbGetAsync({ dbName, path, defaultValue, user })
     },
     /**
      * @description 获取存储数据库对象
@@ -130,7 +130,7 @@ export default {
       basis = 'fullPath',
       user = false
     }) {
-      return dbGet({
+      return dbGetAsync({
         path: `$page.${router.app.$route[basis]}.$data`,
         user,
         defaultValue: cloneDeep(instance.$data)
