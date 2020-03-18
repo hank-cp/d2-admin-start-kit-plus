@@ -1,7 +1,7 @@
 import { Store } from 'vuex'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-declare interface IndexedObject {
+declare interface Any {
   [propName : string]: any;
 }
 
@@ -30,9 +30,9 @@ declare namespace delegate {
   interface LoginResult {
     uuid: string
     name: string
-    saveToCookie?: IndexedObject
-    saveToPrivate?: IndexedObject
-    saveToGlobal?: IndexedObject
+    saveToCookie?: Any
+    saveToPrivate?: Any
+    saveToGlobal?: Any
   }
 
   interface MenuItem {

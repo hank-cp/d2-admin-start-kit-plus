@@ -1,8 +1,9 @@
 // Vue
+import 'vue-class-component/hooks'
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
-
 import App from './App.vue'
+import '@/d2admin/missing-types'
 // D2admin
 import d2Admin from '@/d2admin/plugin/d2admin'
 import store from '@/store'

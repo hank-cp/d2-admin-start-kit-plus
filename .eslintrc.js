@@ -10,7 +10,20 @@ module.exports = {
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'vue/require-v-for-key': 'off',
+    'lines-between-class-members': 'off',
+    'prefer-const': 'off',
+    'array-bracket-spacing': ['warn', 'never'],
+    'quote-props': ['warn', 'as-needed'],
+    'no-unused-vars': 'off',
+    'no-unused-expressions': 'off',
+    'indent': ['error', 2, {
+      FunctionDeclaration: {
+        parameters: 'first'
+      },
+      SwitchCase: 1
+    }]
   },
   parserOptions: {
     parser: '@typescript-eslint/parser'

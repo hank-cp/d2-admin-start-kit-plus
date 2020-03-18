@@ -12,7 +12,11 @@ export function errorCreate (msg: string) {
   throw error
 }
 
-export function errorLog (error: Error, toast: boolean = true) {
+export function errorLog (error: Error | string, toast: boolean = true) {
+  if (typeof error === 'string') {
+    error = new Error(error)
+  }
+
   // 添加到日志
   store.dispatch('d2admin/log/push', {
     message: '数据请求异常',
@@ -24,7 +28,7 @@ export function errorLog (error: Error, toast: boolean = true) {
   // 打印到控制台
   if (process.env.NODE_ENV === 'development') {
     util.log.danger('>>>>>> Error >>>>>>')
-    console.log(error)
+    console.error(error)
   }
   // 显示提示
   if (toast) {

@@ -3,6 +3,29 @@ const VueFilenameInjector = require('@d2-projects/vue-filename-injector')
 const ThemeColorReplacer = require('webpack-theme-color-replacer')
 const forElementUI = require('webpack-theme-color-replacer/forElementUI')
 const cdnDependencies = require('./dependencies-cdn')
+const proxyConfig = require('./proxy.config')
+const ModuleDependencyWarning = require('webpack/lib/ModuleDependencyWarning')
+
+class IgnoreNotFoundExportPlugin {
+  apply (compiler) {
+    const messageRegExp = /export '.*'( \(reexported as '.*'\))? was not found in/
+
+    function doneHook (stats) {
+      stats.compilation.warnings = stats.compilation.warnings.filter(function (warn) {
+        if (warn instanceof ModuleDependencyWarning && messageRegExp.test(warn.message)) {
+          return false
+        }
+        return true
+      })
+    }
+
+    if (compiler.hooks) {
+      compiler.hooks.done.tap('IgnoreNotFoundExportPlugin', doneHook)
+    } else {
+      compiler.plugin('done', doneHook)
+    }
+  }
+}
 
 // 拼接路径
 const resolve = dir => require('path').join(__dirname, dir)
@@ -29,7 +52,8 @@ module.exports = {
   publicPath,
   lintOnSave: true,
   devServer: {
-    publicPath // 和 publicPath 保持一致
+    publicPath, // 和 publicPath 保持一致
+    proxy: proxyConfig
   },
   css: {
     loaderOptions: {
@@ -94,7 +118,7 @@ module.exports = {
         matchColors: [
           ...forElementUI.getElementUISeries(process.env.VUE_APP_ELEMENT_COLOR) // Element-ui主色系列
         ],
-        externalCssFiles: [ './node_modules/element-ui/lib/theme-chalk/index.css' ], // optional, String or string array. Set external css files (such as cdn css) to extract colors.
+        externalCssFiles: ['./node_modules/element-ui/lib/theme-chalk/index.css'], // optional, String or string array. Set external css files (such as cdn css) to extract colors.
         changeSelector: forElementUI.changeSelector
       }])
     config
@@ -138,6 +162,12 @@ module.exports = {
     // 重新设置 alias
     config.resolve.alias
       .set('@d2views', resolve('src/d2admin/views/system'))
+    // ignore ts-loader misleading warning
+    // ref: https://github.com/TypeStrong/ts-loader/issues/653#issuecomment-390889335
+    config
+      .plugin('IgnoreNotFoundExportPlugin')
+      .before('friendly-errors')
+      .use(IgnoreNotFoundExportPlugin)
     // 判断环境加入模拟数据
     const entry = config.entry('app')
     if (process.env.MOCK) {

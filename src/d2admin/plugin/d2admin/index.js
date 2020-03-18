@@ -15,6 +15,8 @@ import pluginError from '@/d2admin/plugin/error'
 import pluginLog from '@/d2admin/plugin/log'
 import pluginOpen from '@/d2admin/plugin/open'
 import pluginEvent from '@/d2admin/plugin/event'
+import pluginLodash from '@/d2admin/plugin/lodash'
+import pluginComputed from '@/d2admin/plugin/computed'
 
 export default {
   async install (Vue, options) {
@@ -38,5 +40,7 @@ export default {
     Vue.use(pluginLog)
     Vue.use(pluginOpen)
     Vue.use(pluginEvent)
+    Vue.use(pluginLodash)
+    Vue.use(pluginComputed)
   }
 }
