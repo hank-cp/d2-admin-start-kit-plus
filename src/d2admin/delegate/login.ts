@@ -16,7 +16,7 @@ export class LoginDelegateDefault implements LoginDelegate {
    * @returns param saveToPrivate {String} 保存到私有存储的数据, 如用户信息
    * @returns param saveToGlobal {String} 保存到公有存储的数据, 如记住登录信息
    */
-  login (loginParam: LoginParam): Promise<LoginResult> {
+  login(loginParam: LoginParam): Promise<LoginResult> {
     return new Promise((resolve, reject) => {
       // resolve({
       //   uuid: '',
@@ -33,17 +33,17 @@ export class LoginDelegateDefault implements LoginDelegate {
    * 退出登录代理接口
    * @return {Promise<Function>}
    */
-  logout (): Promise<Function> {
+  logout(): Promise<Function> {
     return Promise.resolve(() => {})
   }
 }
 
 let INSTANCE = new LoginDelegateDefault()
 export default {
-  get () {
+  get() {
     return INSTANCE
   },
-  set (delegate: LoginDelegate) {
+  set(delegate: LoginDelegate) {
     INSTANCE = delegate
   }
 }

@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     // 始终返回渲染组件
-    component () {
+    component() {
       if (this.type === 'card' && !this.betterScroll) return d2ContainerCard
       if (this.type === 'card' && this.betterScroll) return d2ContainerCardBs
       if (this.type === 'ghost' && !this.betterScroll) return d2ContainerGhost
@@ -37,7 +37,7 @@ export default {
       }
     }
   },
-  render (h) {
+  render(h) {
     const slots = [this.$slots.default]
     if (this.$slots.header) slots.push(h('template', { slot: 'header' }, [this.$slots.header]))
     if (this.$slots.footer) slots.push(h('template', { slot: 'footer' }, [this.$slots.footer]))
@@ -57,14 +57,14 @@ export default {
   },
   methods: {
     // 返回顶部
-    scrollToTop () {
+    scrollToTop() {
       this.$refs.component.scrollToTop()
       // 如果开启了 better scroll 还需要手动触发一遍 scroll 事件
       const bs = this.$refs.component.BS
       if (bs) this.$refs.component.scroll()
     },
     // 用法同原生方法 scrollBy
-    scrollBy (x = 0, y = 0, time = 300) {
+    scrollBy(x = 0, y = 0, time = 300) {
       if (this.betterScroll) {
         const bs = this.$refs.component.BS
         if (bs) {
@@ -77,7 +77,7 @@ export default {
       }
     },
     // 用法同原生方法 scrollTo
-    scrollTo (x = 0, y = 0, time = 300) {
+    scrollTo(x = 0, y = 0, time = 300) {
       if (this.betterScroll) {
         const bs = this.$refs.component.BS
         if (bs) {
@@ -90,7 +90,7 @@ export default {
       }
     },
     // 用法同原生方法 scrollTop
-    scrollTop (top = 0, time = 300) {
+    scrollTop(top = 0, time = 300) {
       if (this.betterScroll) {
         const bs = this.$refs.component.BS
         if (bs) {

@@ -4,7 +4,7 @@ import util from '@/d2admin/libs/util'
 
 Vue.use(VueI18n)
 
-function loadLocaleMessages () {
+function loadLocaleMessages() {
   const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
   const messages = {}
   for (const key of locales.keys()) {

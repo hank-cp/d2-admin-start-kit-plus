@@ -29,7 +29,7 @@ export default {
   components: {
     'd2-theme-list': themeList
   },
-  data () {
+  data() {
     return {
       dialogVisible: false
     }

@@ -11,7 +11,7 @@ export default {
      * @description 记录 UA
      * @param {Object} state state
      */
-    get (state) {
+    get(state) {
       state.data = new UaParser().getResult()
     }
   }

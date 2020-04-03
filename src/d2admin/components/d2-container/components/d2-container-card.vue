@@ -21,11 +21,11 @@ export default {
   mixins: [
     scroll
   ],
-  mounted () {
+  mounted() {
     // 增加滚动事件监听
     this.addScrollListener()
   },
-  beforeDestroy () {
+  beforeDestroy() {
     // 移除滚动事件监听
     this.removeScrollListener()
   }

@@ -9,7 +9,7 @@ import menuDelegate from '@/d2admin/delegate/menu'
  * https://github.com/d2-projects/d2-admin/issues/209
  * @param {Array} menu 原始的菜单数据
  */
-function supplementMenuPath (menu) {
+function supplementMenuPath(menu) {
   return menu.map(e => ({
     ...e,
     path: e.path || uniqueId('d2-menu-empty-'),
@@ -34,7 +34,7 @@ export default {
      * 加载Menu
      * @param {Object} context vuex context
      */
-    load (context) {
+    load(context) {
       return menuDelegate.get().loadMenu(context)
     },
 
@@ -43,7 +43,7 @@ export default {
      * @param {Object} context
      * @param {Boolean} collapse is collapse
      */
-    async asideCollapseSet ({ state, dispatch }, collapse) {
+    async asideCollapseSet({ state, dispatch }, collapse) {
       // store 赋值
       state.asideCollapse = collapse
       // 持久化
@@ -58,7 +58,7 @@ export default {
      * 切换侧边栏展开和收缩
      * @param {Object} context
      */
-    async asideCollapseToggle ({ state, dispatch }) {
+    async asideCollapseToggle({ state, dispatch }) {
       // store 赋值
       state.asideCollapse = !state.asideCollapse
       // 持久化
@@ -73,7 +73,7 @@ export default {
      * 从持久化数据读取侧边栏展开或者收缩
      * @param {Object} context
      */
-    async asideCollapseLoad ({ state, dispatch }) {
+    async asideCollapseLoad({ state, dispatch }) {
       // store 赋值
       state.asideCollapse = await dispatch('d2admin/db/get', {
         dbName: 'sys',
@@ -89,7 +89,7 @@ export default {
      * @param {Object} state state
      * @param {Array} menu menu setting
      */
-    headerSet (state, menu) {
+    headerSet(state, menu) {
       // store 赋值
       state.header = supplementMenuPath(menu)
     },
@@ -98,7 +98,7 @@ export default {
      * @param {Object} state state
      * @param {Array} menu menu setting
      */
-    asideSet (state, menu) {
+    asideSet(state, menu) {
       // store 赋值
       state.aside = supplementMenuPath(menu)
     }

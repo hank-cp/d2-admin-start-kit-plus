@@ -8,19 +8,19 @@ export default {
       default: () => ({})
     }
   },
-  data () {
+  data() {
     return {
       BS: null
     }
   },
-  mounted () {
+  mounted() {
     this.scrollInit()
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.scrollDestroy()
   },
   methods: {
-    scrollInit () {
+    scrollInit() {
       // 初始化 bs
       this.BS = new BScroll(this.$refs.wrapper, Object.assign({
         mouseWheel: true,
@@ -36,7 +36,7 @@ export default {
         y: -y
       }))
     },
-    scrollDestroy () {
+    scrollDestroy() {
       // https://github.com/d2-projects/d2-admin/issues/75
       try {
         this.BS.destroy()
@@ -46,11 +46,11 @@ export default {
       }
     },
     // 外部调用的方法 返回顶部
-    scrollToTop () {
+    scrollToTop() {
       if (this.BS) this.BS.scrollTo(0, 0, 300)
     },
     // 手动发出滚动事件
-    scroll () {
+    scroll() {
       if (this.BS) {
         this.$emit('scroll', {
           x: -this.BS.x,

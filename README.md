@@ -8,7 +8,7 @@ help you start [D2Admin](https://github.com/d2-projects/d2-admin) project quickl
  
  [[中文](README.zh.md)]
  
-![](public/image/directory.png?raw=true)
+![](directory.png?raw=true)
 
 ### Delegate
 [d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus) expose
@@ -31,7 +31,9 @@ defines following directory structure in convention to organize codes.
     * views
         * [your page].vue
         * [assets/image.jpg]
-    * store (TODO) 
+    * store
+        * [your store].js/ts
+        * index.ts (copy from sample and don't modify it)
     * routes.js
 
 ### ModuleHook
@@ -76,19 +78,9 @@ before start to use this project.
     },
   ```
 * Setup e2e test by [cypress](https://www.cypress.io/)
-    ```
-    npm run test:e2e
-    ```
-  
-### Migrate to TypeScript
-Branch `typescript` is the TypeScript version of [d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus).
-You could simply start from it. Or create a patch later when you decide to migrate to TypeScript.
-
-To create a patch:   
-```
-git diff checkout typescript > ../migrate_to_ts.patch
-```
-Then apply it to your own project accordingly.
+  ```
+  npm run test:e2e
+  ```
     
 ### Upgrade D2Admin
 Pull this project with updates then just copy and replace `/src/d2admin` directory 

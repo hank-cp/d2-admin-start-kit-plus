@@ -14,7 +14,7 @@ export default {
     }
   },
   computed: {
-    icon () {
+    icon() {
       return `#d2-${this.name}`
     }
   }

@@ -13,7 +13,7 @@ export default {
      * @param {Object} context
      * @param {String} color 尺寸
      */
-    async set ({ state, dispatch, commit }, color) {
+    async set({ state, dispatch, commit }, color) {
       // 记录上个值
       const old = state.value
       // store 赋值
@@ -35,7 +35,7 @@ export default {
      * @description 从持久化数据读取颜色设置
      * @param {Object} context
      */
-    async load ({ state, dispatch, commit }) {
+    async load({ state, dispatch, commit }) {
       // 记录上个值
       const old = state.value
       // store 赋值
@@ -59,7 +59,7 @@ export default {
      * @param {Object} payload oldColor {String} 旧的颜色
      * @param {Object} payload newColor {String} 新颜色
      */
-    apply (state, { oldColor, newColor }) {
+    apply(state, { oldColor, newColor }) {
       var options = {
         oldColors: [...forElementUI.getElementUISeries(oldColor)],
         newColors: [...forElementUI.getElementUISeries(newColor)]

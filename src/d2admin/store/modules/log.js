@@ -18,14 +18,14 @@ export default {
      * @description 返回现存 log (all) 的条数
      * @param {*} state vuex state
      */
-    length (state) {
+    length(state) {
       return state.log.length
     },
     /**
      * @description 返回现存 log (error) 的条数
      * @param {*} state vuex state
      */
-    lengthError (state) {
+    lengthError(state) {
       return state.log.filter(log => log.type === 'danger').length
     }
   },
@@ -37,7 +37,7 @@ export default {
      * @param {String} param type {String} 类型
      * @param {Object} payload meta {Object} 附带的信息
      */
-    push ({ rootState, commit }, { message, type = 'info', meta }) {
+    push({ rootState, commit }, { message, type = 'info', meta }) {
       commit('push', {
         message,
         type,
@@ -61,14 +61,14 @@ export default {
      * @param {Object} state state
      * @param {Object} log data
      */
-    push (state, log) {
+    push(state, log) {
       state.log.push(log)
     },
     /**
      * @description 清空日志
      * @param {Object} state state
      */
-    clean (state) {
+    clean(state) {
       // store 赋值
       state.log = []
     }

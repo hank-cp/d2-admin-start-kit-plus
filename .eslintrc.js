@@ -23,7 +23,12 @@ module.exports = {
         parameters: 'first'
       },
       SwitchCase: 1
-    }]
+    }],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
   },
   parserOptions: {
     parser: '@typescript-eslint/parser'

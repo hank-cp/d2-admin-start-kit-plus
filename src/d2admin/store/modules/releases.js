@@ -7,7 +7,7 @@ export default {
      * @description 显示版本信息
      * @param {Object} state state
      */
-    versionShow () {
+    versionShow() {
       util.log.capsule('D2Admin', `v${process.env.VUE_APP_VERSION}`)
     }
   }

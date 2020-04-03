@@ -3,16 +3,16 @@ import util from '@/d2admin/libs/util'
 import { Message } from 'element-ui'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { delegate } from '@/d2admin/delegate/index'
-import AxiosDelegate = delegate.AxiosDelegate
+import AxiosDelegate = delegate.AxiosDelegate;
 
 // 创建一个错误
-export function errorCreate (msg: string) {
+export function errorCreate(msg: string) {
   const error = new Error(msg)
   errorLog(error)
   throw error
 }
 
-export function errorLog (error: Error | string, toast: boolean = true) {
+export function errorLog(error: Error | string, toast: boolean = true) {
   if (typeof error === 'string') {
     error = new Error(error)
   }
@@ -40,7 +40,7 @@ export function errorLog (error: Error | string, toast: boolean = true) {
   }
 }
 
-export function translateHttpStatus (error: AxiosError): string {
+export function translateHttpStatus(error: AxiosError): string {
   if (!error || !error.response) return '未知错误'
   switch (error.response.status) {
     case 400: return '请求错误'
@@ -59,7 +59,7 @@ export function translateHttpStatus (error: AxiosError): string {
 }
 
 export class AxiosDelegateDefault implements AxiosDelegate {
-  beforeRequest (config: AxiosRequestConfig): AxiosRequestConfig | Promise<AxiosRequestConfig> {
+  beforeRequest(config: AxiosRequestConfig): AxiosRequestConfig | Promise<AxiosRequestConfig> {
     // 在请求发送之前做一些处理
     const token = util.cookies.get('token')
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
@@ -67,11 +67,11 @@ export class AxiosDelegateDefault implements AxiosDelegate {
     return config
   }
 
-  onRequestError (error: AxiosError): void {
+  onRequestError(error: AxiosError): void {
     console.log(error)
   }
 
-  beforeResponse (response: AxiosResponse): any {
+  beforeResponse(response: AxiosResponse): any {
     // dataAxios 是 axios 返回数据中的 data
     const dataAxios = response.data
     // 这个状态码是和后端约定的
@@ -98,7 +98,7 @@ export class AxiosDelegateDefault implements AxiosDelegate {
     }
   }
 
-  onResponseError (error: AxiosError): any {
+  onResponseError(error: AxiosError): any {
     error.message = translateHttpStatus(error)
     errorLog(error)
   }
@@ -106,10 +106,10 @@ export class AxiosDelegateDefault implements AxiosDelegate {
 
 let INSTANCE = new AxiosDelegateDefault()
 export default {
-  get () {
+  get() {
     return INSTANCE
   },
-  set (delegate: AxiosDelegate) {
+  set(delegate: AxiosDelegate) {
     INSTANCE = delegate
   }
 }

@@ -11,26 +11,26 @@
 <script>
 import { last, get } from 'lodash'
 export default {
-  data () {
+  data() {
     return {
       isActive: false,
       path: ''
     }
   },
   computed: {
-    show () {
+    show() {
       return process.env.VUE_APP_SCOURCE_LINK === 'TRUE'
     }
   },
   watch: {
     $route: {
-      handler (to) {
+      handler(to) {
         this.path = get(last(to.matched), 'components.default.__source')
       },
       immediate: true
     }
   },
-  mounted () {
+  mounted() {
     // 一秒后显示按钮
     setTimeout(() => {
       this.isActive = true
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     // 点击按钮的时候跳转到源代码
-    handleClick () {
+    handleClick() {
       this.$open(`${process.env.VUE_APP_REPO}/blob/master/${this.path}`)
     }
   }

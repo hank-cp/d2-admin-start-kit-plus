@@ -6,45 +6,43 @@ import LoginResult = delegate.LoginResult;
 import LoginParam = delegate.LoginParam;
 
 class LoginDelegateImpl extends LoginDelegateDefault {
-  login (loginParam: LoginParam): Promise<LoginResult> {
-    return new Promise(async (resolve, reject) => {
-      let resp: any
-      if (loginParam.loginToken) {
-        resp = await axios.post(`/login-by-token`,
-          qs.stringify({ loginToken: loginParam.loginParam })
-        ).catch(err => {
-          console.log('Login failed: ', err)
-          reject(err)
+  async login(loginParam: LoginParam): Promise<LoginResult> {
+    let resp: any
+    if (loginParam.loginToken) {
+      resp = await axios.post('/login-by-token',
+        qs.stringify({ loginToken: loginParam.loginParam })
+      ).catch(err => {
+        console.log('Login failed: ', err)
+        throw err
+      })
+    } else {
+      resp = await axios.post('/login',
+        qs.stringify({
+          username: loginParam.username,
+          password: loginParam.password
         })
-      } else {
-        resp = await axios.post(`/login`,
-          qs.stringify({
-            username: loginParam.username,
-            password: loginParam.password
-          })
-        ).catch(err => {
-          console.log('Login failed: ', err)
-          reject(err)
-        })
-      }
+      ).catch(err => {
+        console.log('Login failed: ', err)
+        throw err
+      })
+    }
 
-      const saveToGlobal: any = {}
-      saveToGlobal[resp.principal.username + '-login-token'] = resp['login-token']
+    const saveToGlobal: any = {}
+    saveToGlobal[resp.principal.username + '-login-token'] = resp['login-token']
 
-      let loginResult: LoginResult = {
-        uuid: resp.principal.username,
-        name: resp.principal.nickName || resp.principal.username,
-        saveToCookie: {
-          'access-token': resp['access-token'],
-          'refresh-token': resp['refresh-token']
-        },
-        saveToPrivate: {
-          principal: resp.principal
-        },
-        saveToGlobal
-      }
-      resolve(loginResult)
-    })
+    let loginResult: LoginResult = {
+      uuid: resp.principal.username,
+      name: resp.principal.nickName || resp.principal.username,
+      saveToCookie: {
+        'access-token': resp['access-token'],
+        'refresh-token': resp['refresh-token']
+      },
+      saveToPrivate: {
+        principal: resp.principal
+      },
+      saveToGlobal
+    }
+    return loginResult
   }
 }
 

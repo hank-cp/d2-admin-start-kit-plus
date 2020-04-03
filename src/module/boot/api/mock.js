@@ -8,14 +8,14 @@ export default [
   {
     path: process.env.VUE_APP_API + '/login',
     method: 'post',
-    handle ({ body }) {
+    handle({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.password)
       if (user) {
         return {
           'access-token': 'access-' + user.username,
           'refresh-token': 'refresh-' + user.username,
           'login-token': user.password,
-          'principal': user
+          principal: user
         }
       } else {
         return {
@@ -29,14 +29,14 @@ export default [
   {
     path: process.env.VUE_APP_API + '/login-by-token',
     method: 'post',
-    handle ({ body }) {
+    handle({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.loginToken)
       if (user) {
         return {
           'access-token': 'access-' + user.username,
           'refresh-token': 'refresh-' + user.username,
           'login-token': user.password,
-          'principal': user
+          principal: user
         }
       } else {
         return {

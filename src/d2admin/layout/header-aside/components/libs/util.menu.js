@@ -1,5 +1,5 @@
 // 创建 el-menu-item
-export function elMenuItem (createElement, menu) {
+export function elMenuItem(createElement, menu) {
   return createElement('el-menu-item', { props: { index: menu.path } }, [
     ...menu.icon ? [
       createElement('i', { attrs: { class: `fa fa-${menu.icon}` } })
@@ -15,7 +15,7 @@ export function elMenuItem (createElement, menu) {
 }
 
 // 创建 el-submenu
-export function elSubmenu (createElement, menu) {
+export function elSubmenu(createElement, menu) {
   return createElement('el-submenu', { props: { index: menu.path } }, [
     ...menu.icon ? [
       createElement('i', { slot: 'title', attrs: { class: `fa fa-${menu.icon}` } })

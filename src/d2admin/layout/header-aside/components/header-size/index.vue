@@ -15,7 +15,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'd2-header-size',
-  data () {
+  data() {
     return {
       options: [
         { label: '默认', value: 'default' },
@@ -37,7 +37,7 @@ export default {
     ...mapActions({
       sizeSet: 'd2admin/size/set'
     }),
-    handleChange (value) {
+    handleChange(value) {
       this.sizeSet(value)
       this.$notify({
         title: '提示',
@@ -46,7 +46,7 @@ export default {
         type: 'success'
       })
     },
-    iconName (name) {
+    iconName(name) {
       return name === this.value ? 'dot-circle-o' : 'circle-o'
     }
   }

@@ -131,7 +131,7 @@ export default {
   mixins: [
     localeMixin
   ],
-  data () {
+  data() {
     return {
       timeInterval: null,
       time: dayjs().format('HH:mm:ss'),
@@ -186,26 +186,26 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.timeInterval = setInterval(() => {
       this.refreshTime()
     }, 1000)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.timeInterval)
   },
   methods: {
     ...mapActions('d2admin/account', [
       'login'
     ]),
-    refreshTime () {
+    refreshTime() {
       this.time = dayjs().format('HH:mm:ss')
     },
     /**
      * @description 接收选择一个用户快速登录的事件
      * @param {Object} user 用户信息
      */
-    handleUserBtnClick (user) {
+    handleUserBtnClick(user) {
       this.formLogin.username = user.username
       this.formLogin.password = user.password
       this.submit()
@@ -214,7 +214,7 @@ export default {
      * @description 提交表单
      */
     // 提交登录信息
-    submit () {
+    submit() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           // 登录

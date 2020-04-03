@@ -25,6 +25,7 @@
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "mockjs": "^1.1.0",
+    "moment": "^2.24.0",
     "nprogress": "^0.2.0",
     "qs": "^6.9.1",
     "reflect-metadata": "^0.1.13",
@@ -32,8 +33,6 @@
     "sortablejs": "^1.10.2",
     "ua-parser-js": "^0.7.21",
     "vue": "^2.6.11",
-
-
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.15.4",
     "vue-property-decorator": "^8.4.0",

@@ -37,7 +37,7 @@ export default {
     D2Help,
     D2PageCover
   },
-  data () {
+  data() {
     return {
       filename: __filename
     }

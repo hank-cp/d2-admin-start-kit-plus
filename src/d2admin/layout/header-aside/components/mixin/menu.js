@@ -2,7 +2,7 @@ import util from '@/d2admin/libs/util.js'
 
 export default {
   methods: {
-    handleMenuSelect (index, indexPath) {
+    handleMenuSelect(index, indexPath) {
       if (/^d2-menu-empty-\d+$/.test(index) || index === undefined) {
         this.$message.warning('临时菜单')
       } else if (/^https:\/\/|http:\/\//.test(index)) {

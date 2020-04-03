@@ -72,7 +72,7 @@
 import { mapState } from 'vuex'
 import { get } from 'lodash'
 export default {
-  data () {
+  data() {
     return {
       uploading: false
     }
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     get,
-    handleShowMore (log) {
+    handleShowMore(log) {
       // 打印一条日志的所有信息到控制台
       this.$notify({
         type: 'info',
@@ -99,7 +99,7 @@ export default {
       console.groupEnd()
     },
     // 日志上传
-    handleUpload () {
+    handleUpload() {
       this.uploading = true
       this.$notify({
         type: 'info',

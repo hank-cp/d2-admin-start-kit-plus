@@ -13,7 +13,7 @@ export default {
      * @param {Object} context
      * @param {Boolean} refresh 是否在设置之后刷新页面
      */
-    apply ({ state, commit }, refresh) {
+    apply({ state, commit }, refresh) {
       Vue.prototype.$ELEMENT.size = state.value
       if (refresh) {
         commit('d2admin/page/keepAliveClean', null, { root: true })
@@ -24,7 +24,7 @@ export default {
      * @description 确认已经加载组件尺寸设置 https://github.com/d2-projects/d2-admin/issues/198
      * @param {Object} context
      */
-    isLoaded ({ state }) {
+    isLoaded({ state }) {
       if (state.value) return Promise.resolve()
       return new Promise(resolve => {
         const timer = setInterval(() => {
@@ -39,7 +39,7 @@ export default {
      * @param {Object} context
      * @param {String} size 尺寸
      */
-    async set ({ state, dispatch }, size) {
+    async set({ state, dispatch }, size) {
       // store 赋值
       state.value = size
       // 应用
@@ -56,7 +56,7 @@ export default {
      * @description 从持久化数据读取尺寸设置
      * @param {Object} context
      */
-    async load ({ state, dispatch }) {
+    async load({ state, dispatch }) {
       // store 赋值
       state.value = await dispatch('d2admin/db/get', {
         dbName: 'sys',

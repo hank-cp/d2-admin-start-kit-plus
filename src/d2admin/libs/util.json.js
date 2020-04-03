@@ -6,7 +6,7 @@ const json = {}
  *
  * https://stackoverflow.com/a/11233515/482533
  */
-function stringify (obj) {
+function stringify(obj) {
   if (typeof obj !== 'object' || Array.isArray(obj)) {
     // not an object, stringify using native function
     return JSON.stringify(obj)

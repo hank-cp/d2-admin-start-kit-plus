@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'page2',
-  data () {
+  data() {
     return {
       header: 'Page 2 header',
       msg: 'Hello world from Javascript'

@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       dialogVisible: false
     }

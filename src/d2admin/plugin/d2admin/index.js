@@ -19,7 +19,7 @@ import pluginLodash from '@/d2admin/plugin/lodash'
 import pluginComputed from '@/d2admin/plugin/computed'
 
 export default {
-  async install (Vue, options) {
+  async install(Vue, options) {
     // 设置为 false 以阻止 vue 在启动时生成生产提示
     // https://cn.vuejs.org/v2/api/#productionTip
     Vue.config.productionTip = false

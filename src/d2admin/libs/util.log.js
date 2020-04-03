@@ -4,7 +4,7 @@ const log = {}
  * @description 返回这个样式的颜色值
  * @param {String} type 样式名称 [ primary | success | warning | danger | text ]
  */
-function typeColor (type = 'default') {
+function typeColor(type = 'default') {
   let color = ''
   switch (type) {
     case 'default': color = '#35495E'; break

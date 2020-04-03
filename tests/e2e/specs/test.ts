@@ -65,4 +65,25 @@ describe('My First Test', () => {
 
     cy.contains('p', '时间是一切财富中最宝贵的财富')
   })
+
+  it('Module Vuex setup', () => {
+    cy.index()
+    cy.contains('p', '时间是一切财富中最宝贵的财富')
+    cy.login({
+      username: 'admin',
+      password: 'admin'
+    })
+
+    // page 1
+    cy.get('.el-menu--horizontal.el-menu > .is-active > span').contains('首页')
+    cy.get('#app > div > div.d2-layout-header-aside-content > div.d2-theme-container > div.d2-theme-container-aside').contains('页面').click()
+    cy.contains('#app > div > div.d2-layout-header-aside-content > div.d2-theme-container > div.d2-theme-container-aside li', '页面 1').click()
+    cy.contains('div', 'Page 1 header')
+    cy.contains('div', 'Hello world from API mock')
+
+    cy.get('#btn_inc').click().click().click()
+    cy.contains('div', 'Vuex Test - 3')
+    cy.get('#btn_reset').click()
+    cy.contains('div', 'Vuex Test - 0')
+  })
 })

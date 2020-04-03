@@ -10,7 +10,7 @@ export class MenuDelegateDefault implements MenuDelegate {
   /**
    * 获取Menu
    */
-  loadMenu (store: Store<any>): Promise<void> {
+  loadMenu(store: Store<any>): Promise<void> {
     return new Promise((resolve) => {
       const menuHeader: MenuItem = require('../../d2admin/menu/header').default
       const menuAside: MenuItem = require('../../d2admin/menu/aside').default
@@ -27,10 +27,10 @@ export class MenuDelegateDefault implements MenuDelegate {
 
 let INSTANCE = new MenuDelegateDefault()
 export default {
-  get () {
+  get() {
     return INSTANCE
   },
-  set (delegate: MenuDelegateDefault) {
+  set(delegate: MenuDelegateDefault) {
     INSTANCE = delegate
   }
 }

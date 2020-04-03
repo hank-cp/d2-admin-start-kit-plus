@@ -1,9 +1,9 @@
 // import './vue'
 
 export default {
-  install (Vue, options) {
+  install(Vue, options) {
     Object.defineProperty(Vue.prototype, '$computed', {
-      get () {
+      get() {
         let computed = {}
         Object.keys(this._computedWatchers).forEach((key) => {
           computed[key] = this._computedWatchers[key].get()

@@ -7,10 +7,10 @@ const proxyConfig = require('./proxy.config')
 const ModuleDependencyWarning = require('webpack/lib/ModuleDependencyWarning')
 
 class IgnoreNotFoundExportPlugin {
-  apply (compiler) {
+  apply(compiler) {
     const messageRegExp = /export '.*'( \(reexported as '.*'\))? was not found in/
 
-    function doneHook (stats) {
+    function doneHook(stats) {
       stats.compilation.warnings = stats.compilation.warnings.filter(function (warn) {
         if (warn instanceof ModuleDependencyWarning && messageRegExp.test(warn.message)) {
           return false
@@ -59,7 +59,7 @@ module.exports = {
     loaderOptions: {
       // 设置 scss 公用变量文件
       sass: {
-        prependData: `@import '~@/assets/style/public.scss';`
+        prependData: '@import \'~@/assets/style/public.scss\';'
       }
     }
   },

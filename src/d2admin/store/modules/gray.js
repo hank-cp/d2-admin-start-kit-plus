@@ -9,7 +9,7 @@ export default {
      * @description 切换灰度状态
      * @param {Object} state state
      */
-    toggle (state) {
+    toggle(state) {
       state.active = !state.active
     },
     /**
@@ -17,7 +17,7 @@ export default {
      * @param {Object} state state
      * @param {Boolean} active active
      */
-    set (state, active) {
+    set(state, active) {
       state.active = active
     }
   }

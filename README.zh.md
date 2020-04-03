@@ -8,7 +8,7 @@
  
  [[English](README.md)]
  
-![](public/image/directory.png?raw=true)
+![](directory.png?raw=true)
  
 ### 代理Delegate
 [d2-admin-start-kit-plus](https://github.com/hank-cp/d2-admin-start-kit-plus) 暴露一系列
@@ -30,7 +30,9 @@
     * views
         * [your page].vue
         * [assets/image.jpg]
-    * store (TODO) 
+    * store
+        * [your store].js/ts
+        * index.ts (从示例复制过去并且不要修改它)
     * routes.js
     * hook.js
     

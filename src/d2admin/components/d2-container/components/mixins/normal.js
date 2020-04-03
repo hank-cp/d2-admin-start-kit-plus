@@ -4,7 +4,7 @@
 import { throttle } from 'lodash'
 
 // 生成滚动事件的 handler
-function handleMaker (wait) {
+function handleMaker(wait) {
   return throttle(e => {
     this.$emit('scroll', {
       x: e.target.scrollLeft,
@@ -22,13 +22,13 @@ export default {
       default: 10
     }
   },
-  data () {
+  data() {
     return {
       handleScroll: null
     }
   },
   watch: {
-    scrollDelay (val) {
+    scrollDelay(val) {
       // 移除旧的监听
       this.removeScrollListener()
       // 生成新的 handle 方法
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     // 增加滚动事件监听
-    addScrollListener () {
+    addScrollListener() {
       if (typeof this.handleScroll !== 'function') {
         // mounted 生命周期内调用这个方法的时候会进入这里的判断
         this.handleScroll = handleMaker.call(this, this.scrollDelay)
@@ -48,11 +48,11 @@ export default {
       this.$refs.body.addEventListener('scroll', this.handleScroll)
     },
     // 移除滚动事件监听
-    removeScrollListener () {
+    removeScrollListener() {
       this.$refs.body.removeEventListener('scroll', this.handleScroll)
     },
     // 外部调用的方法 返回顶部
-    scrollToTop () {
+    scrollToTop() {
       const smoothscroll = () => {
         const body = this.$refs.body
         const currentScroll = body.scrollTop

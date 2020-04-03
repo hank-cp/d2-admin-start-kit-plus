@@ -13,7 +13,7 @@ export default {
      * @param {Object} context
      * @param {Boolean} active 新的状态
      */
-    async set ({ state, dispatch }, active) {
+    async set({ state, dispatch }, active) {
       // store 赋值
       state.active = active
       // 持久化
@@ -28,7 +28,7 @@ export default {
      * 从数据库读取页面过渡动画设置
      * @param {Object} state vuex state
      */
-    async load ({ state, dispatch }) {
+    async load({ state, dispatch }) {
       // store 赋值
       state.active = await dispatch('d2admin/db/get', {
         dbName: 'sys',

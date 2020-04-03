@@ -3,11 +3,11 @@ import util from '@/d2admin/libs/util'
 import { get } from 'lodash'
 
 export default {
-  install (Vue, options) {
+  install(Vue, options) {
     // 快速打印 log
     Vue.prototype.$log = {
       ...util.log,
-      push (data, type = 'error') {
+      push(data, type = 'error') {
         if (typeof data === 'string') {
           // 如果传递来的数据是字符串
           // 赋值给 message 字段

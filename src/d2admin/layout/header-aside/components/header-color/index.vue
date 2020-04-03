@@ -12,7 +12,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'd2-header-color',
-  data () {
+  data() {
     return {
       predefine: [
         '#ff4500',
@@ -31,7 +31,7 @@ export default {
     ])
   },
   watch: {
-    value (value) {
+    value(value) {
       this.set(value)
     }
   },

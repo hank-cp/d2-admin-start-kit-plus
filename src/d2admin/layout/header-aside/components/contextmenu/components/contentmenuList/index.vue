@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    rowClick (event) {
+    rowClick(event) {
       let target = event.target
       while (!target.dataset.value) {
         target = target.parentNode

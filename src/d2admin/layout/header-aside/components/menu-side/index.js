@@ -8,7 +8,7 @@ export default {
   mixins: [
     menuMixin
   ],
-  render (createElement) {
+  render(createElement) {
     return createElement('div', { attrs: { class: 'd2-layout-header-aside-menu-side' } }, [
       createElement('el-menu', {
         props: { collapse: this.asideCollapse, uniqueOpened: true, defaultActive: this.active },
@@ -23,7 +23,7 @@ export default {
       ] : []
     ])
   },
-  data () {
+  data() {
     return {
       active: '',
       asideHeight: 300,
@@ -38,7 +38,7 @@ export default {
   },
   watch: {
     // 折叠和展开菜单的时候销毁 better scroll
-    asideCollapse (val) {
+    asideCollapse(val) {
       this.scrollDestroy()
       setTimeout(() => {
         this.scrollInit()
@@ -46,20 +46,20 @@ export default {
     },
     // 监听路由 控制侧边栏激活状态
     '$route.fullPath': {
-      handler (value) {
+      handler(value) {
         this.active = value
       },
       immediate: true
     }
   },
-  mounted () {
+  mounted() {
     this.scrollInit()
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.scrollDestroy()
   },
   methods: {
-    scrollInit () {
+    scrollInit() {
       this.BS = new BScroll(this.$el, {
         mouseWheel: true,
         click: true
@@ -70,7 +70,7 @@ export default {
         // }
       })
     },
-    scrollDestroy () {
+    scrollDestroy() {
       // https://github.com/d2-projects/d2-admin/issues/75
       try {
         this.BS.destroy()

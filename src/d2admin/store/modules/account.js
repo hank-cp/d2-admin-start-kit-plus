@@ -20,7 +20,7 @@ export default {
      * @param {Object} param context
      * @param {Object} loginParam 登录信息
      */
-    login ({ state, dispatch, commit }, loginParam) {
+    login({ state, dispatch, commit }, loginParam) {
       commit('startLoading')
       return loginDelegate.get().login(loginParam).then(({
         uuid = '', name = '',
@@ -79,11 +79,11 @@ export default {
      * @param {Object} context
      * @param {Object} payload confirm {Boolean} 是否需要确认
      */
-    logout ({ state, commit, dispatch }, { confirm = false } = {}) {
+    logout({ state, commit, dispatch }, { confirm = false } = {}) {
       /**
        * @description 注销
        */
-      function logout () {
+      function logout() {
         state.logoutLoading = true
         // 删除登录标志
         util.cookies.remove('uuid')
@@ -123,7 +123,7 @@ export default {
      * @description 用户登录后从持久化数据加载一系列的设置
      * @param {Object} context
      */
-    load ({ dispatch }) {
+    load({ dispatch }) {
       return Promise.all([
         // DB -> store 加载用户名
         dispatch('d2admin/user/load', null, { root: true }),
@@ -150,7 +150,7 @@ export default {
      * @param {Object} state state
      * @param {Boolean} text 加载状态文字
      */
-    startLoading (state, text) {
+    startLoading(state, text) {
       state.loading = true
       if (text) state.loadingText = text
     },
@@ -158,7 +158,7 @@ export default {
      * @description 关闭 登录加载状态
      * @param {Object} state state
      */
-    stopLoading (state) {
+    stopLoading(state) {
       state.loading = false
     }
   }

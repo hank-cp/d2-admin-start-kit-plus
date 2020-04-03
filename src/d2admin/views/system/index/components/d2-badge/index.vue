@@ -11,7 +11,7 @@
 <script>
 const linkD2Admin = 'https://github.com/d2-projects/d2-admin'
 export default {
-  data () {
+  data() {
     return {
       badges: [
         [
