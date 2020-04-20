@@ -1,6 +1,8 @@
+import { uniqueId } from 'lodash'
+
 // 创建 el-menu-item
 export function elMenuItem(createElement, menu) {
-  return createElement('el-menu-item', { props: { index: menu.path } }, [
+  return createElement('el-menu-item', { key: menu.path, props: { index: menu.path } }, [
     ...menu.icon ? [
       createElement('i', { attrs: { class: `fa fa-${menu.icon}` } })
     ] : [],
@@ -16,7 +18,7 @@ export function elMenuItem(createElement, menu) {
 
 // 创建 el-submenu
 export function elSubmenu(createElement, menu) {
-  return createElement('el-submenu', { props: { index: menu.path } }, [
+  return createElement('el-submenu', { key: menu.path, props: { index: menu.path } }, [
     ...menu.icon ? [
       createElement('i', { slot: 'title', attrs: { class: `fa fa-${menu.icon}` } })
     ] : [],
@@ -29,4 +31,14 @@ export function elSubmenu(createElement, menu) {
     createElement('span', { slot: 'title' }, menu.title || '未命名菜单'),
     ...menu.children.map((child, childIndex) => (child.children === undefined ? elMenuItem : elSubmenu).call(this, createElement, child))
   ])
+}
+
+export function supplementPath(menu) {
+  return menu.map(e => ({
+    ...e,
+    path: e.path || uniqueId('d2-menu-empty-'),
+    ...e.children ? {
+      children: supplementPath(e.children)
+    } : {}
+  }))
 }

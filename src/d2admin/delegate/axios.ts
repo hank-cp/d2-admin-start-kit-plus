@@ -3,7 +3,7 @@ import util from '@/d2admin/libs/util'
 import { Message } from 'element-ui'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { delegate } from '@/d2admin/delegate/index'
-import AxiosDelegate = delegate.AxiosDelegate;
+import AxiosDelegate = delegate.AxiosDelegate
 
 // 创建一个错误
 export function errorCreate(msg: string) {
