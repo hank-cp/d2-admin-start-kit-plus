@@ -77,6 +77,20 @@ before start to use this project.
       })
     },
   ```
+* Integrate with [vue-cli-plugin-ssh](https://github.com/hank-cp/vue-cli-plugin-ssh)
+    * Usage: place a file named `upload.config.js` under project root dir
+    ```
+        module.exports = {
+          host: 'your host',
+          port: '22',
+          username: 'username',
+          password: 'password',
+          // privateKey: require('fs').readFileSync('~/.ssh/id_rsa'),
+          localPath: 'dist',
+          remotePath: 'remote dir path'
+        }
+    ``` 
+    * see the plugin document for more details
 * Setup e2e test by [cypress](https://www.cypress.io/)
   ```
   npm run test:e2e

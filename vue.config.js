@@ -1,10 +1,23 @@
+function checkEnvEnabled(envName) {
+  return process.env[envName] && envName !== 'false'
+}
+
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+
 const VueFilenameInjector = require('@d2-projects/vue-filename-injector')
 const ThemeColorReplacer = require('webpack-theme-color-replacer')
 const forElementUI = require('webpack-theme-color-replacer/forElementUI')
-const cdnDependencies = require('./dependencies-cdn')
-const proxyConfig = require('./proxy.config')
 const ModuleDependencyWarning = require('webpack/lib/ModuleDependencyWarning')
+
+const cdnDependencies = checkEnvEnabled('ENABLE_CDN') ? require('./dependencies-cdn') : {}
+const proxyConfig = checkEnvEnabled('ENABLE_LOCAL_PROXY') ? require('./proxy.config') : {}
+let uploadConfig
+try {
+  uploadConfig = require('./upload.config')
+} catch (e) {
+  console.log('WARN: uploading is not configured.')
+}
+
 const { chain, set, each, keys } = require('lodash')
 
 class IgnoreNotFoundExportPlugin {
@@ -171,18 +184,12 @@ module.exports = {
       .before('friendly-errors')
       .use(IgnoreNotFoundExportPlugin)
     // 判断环境加入模拟数据
-    if (process.env.MOCK === 'true') {
+    if (checkEnvEnabled('ENABLE_MOCK')) {
       const multiEntry = keys(pages || {})
       const entries = multiEntry.length ? multiEntry : ['app']
       each(entries, entry => {
         const e = config.entry(entry).add('@/d2admin/mock').end()
       })
-    }
-    // 分析工具
-    if (process.env.npm_config_report) {
-      config
-        .plugin('webpack-bundle-analyzer')
-        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     }
   },
   // 不输出 map 文件
@@ -194,6 +201,7 @@ module.exports = {
       fallbackLocale: 'en',
       localeDir: 'locales',
       enableInSFC: true
-    }
+    },
+    ssh: uploadConfig
   }
 }

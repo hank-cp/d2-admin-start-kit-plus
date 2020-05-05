@@ -71,6 +71,20 @@
       })
     },
   ```
+* 集成上传插件[vue-cli-plugin-ssh](https://github.com/hank-cp/vue-cli-plugin-ssh)
+    * 用法: 在项目根目录下放一个名为`upload.config.js`的文件, 包含以下内容:
+    ```
+        module.exports = {
+          host: 'your host',
+          port: '22',
+          username: 'username',
+          password: 'password',
+          // privateKey: require('fs').readFileSync('~/.ssh/id_rsa'),
+          localPath: 'dist',
+          remotePath: 'remote dir path'
+        }
+    ``` 
+    * 更多用法请查看该插件文档
 * 集成测试环境 by [cypress](https://www.cypress.io/)
     ```
     npm run test:e2e
