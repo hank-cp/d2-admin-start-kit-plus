@@ -6,7 +6,7 @@ const userDB = [
 
 export default [
   {
-    path: process.env.VUE_APP_API + '/login',
+    path: /\/login$/,
     method: 'post',
     handle({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.password)
@@ -27,7 +27,7 @@ export default [
     }
   },
   {
-    path: process.env.VUE_APP_API + '/login-by-token',
+    path: /\/login-by-token$/,
     method: 'post',
     handle({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.loginToken)

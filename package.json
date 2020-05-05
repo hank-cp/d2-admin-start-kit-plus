@@ -1,6 +1,6 @@
 {
   "name": "d2-admin-start-kit-plus",
-  "version": "1.8.4",
+  "version": "1.10.0",
   "license": "MIT",
   "repository": "git@git.dev.tencent.com:hank_cp/lolth-client.git",
   "scripts": {
@@ -10,7 +10,7 @@
     "build:prod": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint --fix",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e --mode production"
+    "test:e2e": "vue-cli-service test:e2e --mode development"
   },
   "dependencies": {
     "axios": "^0.19.2",

@@ -1,23 +1,6 @@
-import { uniqueId } from 'lodash'
-
-// 设置文件
+import { supplementPath } from '@/d2admin/layout/header-aside/components/libs/util.menu'
 import setting from '@/d2admin/setting'
 import menuDelegate from '@/d2admin/delegate/menu'
-
-/**
- * 给菜单数据补充上 path 字段
- * https://github.com/d2-projects/d2-admin/issues/209
- * @param {Array} menu 原始的菜单数据
- */
-function supplementMenuPath(menu) {
-  return menu.map(e => ({
-    ...e,
-    path: e.path || uniqueId('d2-menu-empty-'),
-    ...e.children ? {
-      children: supplementMenuPath(e.children)
-    } : {}
-  }))
-}
 
 export default {
   namespaced: true,
@@ -27,7 +10,9 @@ export default {
     // 侧栏菜单
     aside: [],
     // 侧边栏收缩
-    asideCollapse: setting.menu.asideCollapse
+    asideCollapse: setting.menu.asideCollapse,
+    // 侧边栏折叠动画
+    asideTransition: setting.menu.asideTransition
   },
   actions: {
     /**
@@ -70,17 +55,50 @@ export default {
       }, { root: true })
     },
     /**
-     * 从持久化数据读取侧边栏展开或者收缩
+     * 设置侧边栏折叠动画
      * @param {Object} context
+     * @param {Boolean} transition is transition
      */
-    async asideCollapseLoad({ state, dispatch }) {
+    async asideTransitionSet({ state, dispatch }, transition) {
       // store 赋值
-      state.asideCollapse = await dispatch('d2admin/db/get', {
+      state.asideTransition = transition
+      // 持久化
+      await dispatch('d2admin/db/set', {
         dbName: 'sys',
-        path: 'menu.asideCollapse',
-        defaultValue: setting.menu.asideCollapse,
+        path: 'menu.asideTransition',
+        value: state.asideTransition,
         user: true
       }, { root: true })
+    },
+    /**
+     * 切换侧边栏折叠动画
+     * @param {Object} context
+     */
+    async asideTransitionToggle({ state, dispatch }) {
+      // store 赋值
+      state.asideTransition = !state.asideTransition
+      // 持久化
+      await dispatch('d2admin/db/set', {
+        dbName: 'sys',
+        path: 'menu.asideTransition',
+        value: state.asideTransition,
+        user: true
+      }, { root: true })
+    },
+    /**
+     * 持久化数据加载侧边栏设置
+     * @param {Object} context
+     */
+    async asideLoad({ state, dispatch }) {
+      // store 赋值
+      const menu = await dispatch('d2admin/db/get', {
+        dbName: 'sys',
+        path: 'menu',
+        defaultValue: setting.menu,
+        user: true
+      }, { root: true })
+      state.asideCollapse = menu.asideCollapse !== undefined ? menu.asideCollapse : setting.menu.asideCollapse
+      state.asideTransition = menu.asideTransition !== undefined ? menu.asideTransition : setting.menu.asideTransition
     }
   },
   mutations: {
@@ -91,7 +109,7 @@ export default {
      */
     headerSet(state, menu) {
       // store 赋值
-      state.header = supplementMenuPath(menu)
+      state.header = supplementPath(menu)
     },
     /**
      * @description 设置侧边栏菜单
@@ -100,7 +118,7 @@ export default {
      */
     asideSet(state, menu) {
       // store 赋值
-      state.aside = supplementMenuPath(menu)
+      state.aside = supplementPath(menu)
     }
   }
 }

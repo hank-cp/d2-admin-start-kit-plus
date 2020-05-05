@@ -13,10 +13,7 @@ class IgnoreNotFoundExportPlugin {
 
     function doneHook(stats) {
       stats.compilation.warnings = stats.compilation.warnings.filter(function (warn) {
-        if (warn instanceof ModuleDependencyWarning && messageRegExp.test(warn.message)) {
-          return false
-        }
-        return true
+        return !(warn instanceof ModuleDependencyWarning && messageRegExp.test(warn.message))
       })
     }
 
@@ -40,7 +37,7 @@ let publicPath = process.env.VUE_APP_PUBLIC_PATH || '/'
 
 // 设置不参与构建的库
 let externals = {}
-cdnDependencies.forEach(pkg => { externals[pkg.name] = pkg.library })
+cdnDependencies.forEach(p => { externals[p.name] = p.library })
 
 // 引入文件的 cdn 链接
 const cdn = {

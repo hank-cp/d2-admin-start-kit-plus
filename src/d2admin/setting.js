@@ -7,9 +7,10 @@ export default {
       close: 'esc'
     }
   },
-  // 侧边栏默认折叠状态
+  // 侧边栏默认配置
   menu: {
-    asideCollapse: false
+    asideCollapse: false,
+    asideTransition: true
   },
   // 在读取持久化数据失败时默认页面
   page: {
@@ -35,6 +36,11 @@ export default {
         title: 'd2admin 经典',
         name: 'd2',
         preview: 'image/theme/d2/preview@2x.png'
+      },
+      {
+        title: 'Chester',
+        name: 'chester',
+        preview: 'image/theme/chester/preview@2x.png'
       },
       {
         title: '紫罗兰',
@@ -63,9 +69,5 @@ export default {
   // 是否默认开启页面切换动画
   transition: {
     active: true
-  },
-  axios: {
-    baseURL: process.env.VUE_APP_API,
-    timeout: 500000
   }
 }

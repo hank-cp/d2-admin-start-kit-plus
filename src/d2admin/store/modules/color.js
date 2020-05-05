@@ -13,42 +13,44 @@ export default {
      * @param {Object} context
      * @param {String} color 尺寸
      */
-    async set({ state, dispatch, commit }, color) {
+    set({ state, dispatch, commit }, color) {
       // 记录上个值
       const old = state.value
       // store 赋值
       state.value = color || process.env.VUE_APP_ELEMENT_COLOR
       // 持久化
-      await dispatch('d2admin/db/set', {
+      return dispatch('d2admin/db/set', {
         dbName: 'sys',
         path: 'color.value',
         value: state.value,
         user: true
-      }, { root: true })
-      // 应用
-      commit('apply', {
-        oldColor: old,
-        newColor: state.value
+      }, { root: true }).then(() => {
+        // 应用
+        commit('apply', {
+          oldColor: old,
+          newColor: state.value
+        })
       })
     },
     /**
      * @description 从持久化数据读取颜色设置
      * @param {Object} context
      */
-    async load({ state, dispatch, commit }) {
+    load({ state, dispatch, commit }) {
       // 记录上个值
       const old = state.value
       // store 赋值
-      state.value = await dispatch('d2admin/db/get', {
+      return dispatch('d2admin/db/get', {
         dbName: 'sys',
         path: 'color.value',
         defaultValue: process.env.VUE_APP_ELEMENT_COLOR,
         user: true
-      }, { root: true })
-      // 应用
-      commit('apply', {
-        oldColor: old,
-        newColor: state.value
+      }, { root: true }).then(() => {
+        // 应用
+        commit('apply', {
+          oldColor: old,
+          newColor: state.value
+        })
       })
     }
   },

@@ -10,11 +10,11 @@ export default {
      * @param {Object} context
      * @param {*} info info
      */
-    async set({ state, dispatch }, info) {
+    set({ state, dispatch }, info) {
       // store 赋值
       state.info = info
       // 持久化
-      await dispatch('d2admin/db/set', {
+      return dispatch('d2admin/db/set', {
         dbName: 'sys',
         path: 'user.info',
         value: info,
@@ -25,14 +25,16 @@ export default {
      * @description 从数据库取用户数据
      * @param {Object} context
      */
-    async load({ state, dispatch }) {
+    load({ state, dispatch }) {
       // store 赋值
-      state.info = await dispatch('d2admin/db/get', {
+      return dispatch('d2admin/db/get', {
         dbName: 'sys',
         path: 'user.info',
         defaultValue: {},
         user: true
-      }, { root: true })
+      }, { root: true }).then(info => {
+        state.info = info
+      })
     }
   }
 }
