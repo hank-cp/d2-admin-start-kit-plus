@@ -19,10 +19,13 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-unused-expressions': 'off',
     'indent': ['error', 2, {
-      FunctionDeclaration: {
+      'FunctionDeclaration': {
         parameters: 'first'
       },
-      SwitchCase: 1
+      'FunctionExpression':{
+        parameters: 'first'
+      },
+      'SwitchCase': 1
     }],
     "space-before-function-paren": ["error", {
       "anonymous": "always",
