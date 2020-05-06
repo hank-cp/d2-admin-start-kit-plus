@@ -46,10 +46,12 @@
     * 我们推荐使用 [vue-class-component](https://github.com/vuejs/vue-class-component)
       和 [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
       来编写组织您的vue代码. 
-* Mock开关
-    * 通过`.env`文件中的`MOCK`参数进行控制.
-    * `mock.js`中的`path`属性不再默认转换为正则表达式. 您可以自行选择使用正则表达式或字符串
-    来匹配URL.
+* `.env`文件中的构建开关
+    * `ENABLE_MOCK` 是否启用mock
+        * 原版的`mockjs`已被替换为`axios-mock-adapter`.
+    * `ENABLE_LOCAL_PROXY` 是否使用本地代理服务
+        * 需要自己配置[proxy.config.js](./proxy.config.js).
+    * `ENABLE_CDN` 是否通过CDN加载外部依赖(有效减小包size)
 * Devtool
     * 改为`source-map`, 原版是`cheap-source-map`. 如果开发时遇到遇到性能问题可以尝试修改这里.
 * Vue异步组件

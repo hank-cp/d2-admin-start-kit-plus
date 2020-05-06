@@ -49,10 +49,12 @@ before start to use this project.
     * We recommend to use [vue-class-component](https://github.com/vuejs/vue-class-component)
       and [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
       to organize your vue code.
-* Mock switch
-    * it's now control by `MOCK` in `.env` file
-    * `path` in `mock.js` will not be conver to RegExp anymore, you could choose
-    use regexp for plain text by yourself to match mock URL.
+* Build switch in `.env`
+    * `ENABLE_MOCK` decides to use http request mocking or not .
+        * Note that `mockjs` is replaced by `axios-mock-adapter`.
+    * `ENABLE_LOCAL_PROXY` decides local proxy to be enabled or not.
+        * You will need to set up [proxy.config.js](./proxy.config.js) accordingly.
+    * `ENABLE_CDN` decides that dependencies will be loaded from cdn rather than built bundle. 
 * Devtool
     * it's now `source-map`, original it's `cheap-source-map`. If you run into
     performance issue, consider modify it.
