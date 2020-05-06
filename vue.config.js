@@ -188,7 +188,7 @@ module.exports = {
       const multiEntry = keys(pages || {})
       const entries = multiEntry.length ? multiEntry : ['app']
       each(entries, entry => {
-        const e = config.entry(entry).add('@/d2admin/mock').end()
+        const e = config.entry(entry).add('@/d2admin/plugin/axios/mock-loader').end()
       })
     }
   },
